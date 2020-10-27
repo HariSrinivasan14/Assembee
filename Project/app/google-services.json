@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "438448905616",
+    "firebase_url": "https://assembee-2284f.firebaseio.com",
+    "project_id": "assembee-2284f",
+    "storage_bucket": "assembee-2284f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438448905616:android:8e3f00199bca716fe32715",
+        "android_client_info": {
+          "package_name": "com.example.assembee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438448905616-u4j1ulludkd9l47sea50pcs9f5rnavku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhx2KiAoy2rg5GJvBivnaB75PPDL5fxys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438448905616-u4j1ulludkd9l47sea50pcs9f5rnavku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
