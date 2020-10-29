@@ -6,14 +6,55 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+
 import android.widget.ImageButton
 
-class MainActivity : AppCompatActivity() {
+import com.google.android.material.bottomnavigation.BottomNavigationMenu
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
 
+
+class MainActivity : AppCompatActivity() {
+    private fun setCurrentFragment(fragment:Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,fragment)
+            commit()
+        }
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_dashboard -> {
+                val dashFragment = dash_dummy.newInstance()
+                setCurrentFragment(dashFragment)
+
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_explore -> {
+                val exploreFragment = explore_dummy.newInstance()
+                setCurrentFragment(exploreFragment)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_notifications -> {
+                val notifFragment = notif_dummy.newInstance()
+                setCurrentFragment(notifFragment)
+
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_likes -> {
+                val likesFragment = likes_dummy.newInstance()
+                setCurrentFragment(likesFragment)
+
+                return@OnNavigationItemSelectedListener true
+            }
+
+        }
+        false
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setCurrentFragment(dash_dummy.newInstance())
         setContentView(R.layout.activity_main)
-        //setSupportActionBar(findViewById(R.id.toolbar))
+        val bottom_nav: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
