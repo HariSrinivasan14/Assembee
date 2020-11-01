@@ -1,5 +1,6 @@
 package com.example.assembee
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -55,6 +56,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val bottom_nav: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        val button_add_post: ImageButton = findViewById(R.id.addpost)
+        button_add_post.setOnClickListener {
+            val intent = Intent(this, Add_Post :: class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
