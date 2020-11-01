@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Add_Post"
+    tools:showIn="@layout/activity_add__post">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/NewProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"
+            android:text="@string/New_Post"
+            android:inputType="text"
+            android:textSize="25sp"
+            tools:ignore="TextViewEdits" />
+
+        <EditText
+            android:id="@+id/textProjectName"
+            android:layout_width="324dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputbox"
+            android:ems="10"
+            android:hint="@string/Project_Name"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+
+            android:autofillHints="@string/Project_Name"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:inputType="text"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/projectCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/Project_Category"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="15dp"
+            >
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_1"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/Web" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_2"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/Android_App" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_3"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/IOS_app" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_4"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/Machine_Learning" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_5"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/AI" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_6"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/Other" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/contactInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/Contact_Information"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/textContactInformation"
+            android:layout_width="326dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputbox"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:hint="@null"
+            android:autofillHints="@string/Project_Name"
+            android:paddingStart="15dp"
+            android:paddingEnd="10dp"
+            android:layout_marginStart="10dp"
+
+            />
+        <TextView
+            android:id="@+id/preferredAvailability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/Preferred_Availabilty"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+        <EditText
+            android:id="@+id/textPreferredAvailability"
+            android:layout_width="326dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputbox"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:autofillHints="@string/Preferred_Availabilty"
+            android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:hint="@null"
+            />
+        <TextView
+            android:id="@+id/DD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/DD"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/TextDD"
+            android:layout_width="336dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputbox"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:hint="@null"
+            android:autofillHints="@string/DD"
+            />
+
+        <Button
+            android:id="@+id/postButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="250dp"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/buttonround"
+            android:text="@string/Post"
+            android:textColor="@color/black" />
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
