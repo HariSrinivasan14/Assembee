@@ -18,10 +18,16 @@ class Server:
         try:
             import lib.endpoints as endpoints
             self.app.add_url_rule("/", "index", Pages.index)
-
-            resources = [(endpoints.User, f"{self.base_url}user/<string:username>")]
-            for endpoint, uri in resources:
-                self.api.add_resource(endpoint, uri)
+            resources = [(endpoints.User,
+                          f"{self.base_url}user/<string:username>"),
+                         (endpoints.Project,
+                          f"{self.base_url}project",
+                          f"{self.base_url}project/<string:project_id>"),
+                         (endpoints.Projects,
+                          f"{self.base_url}projects/<string:user_id>")
+                         ]
+            for resource in resources:
+                self.api.add_resource(*resource)
         except Exception as error:
             print(error)
             raise
