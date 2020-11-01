@@ -8,7 +8,7 @@ import android.view.ViewGroup
 
 /**
  * A simple [Fragment] subclass.
- * Use the [dash_dummy.newInstance] factory method to
+ * Use the [DashboardFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class likes_dummy : Fragment() {
