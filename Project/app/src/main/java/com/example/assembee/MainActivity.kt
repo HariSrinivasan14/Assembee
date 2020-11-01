@@ -1,15 +1,10 @@
 package com.example.assembee
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 
-import android.widget.ImageButton
-
-import com.google.android.material.bottomnavigation.BottomNavigationMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.fragment.app.Fragment
 
@@ -23,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_dashboard -> {
-                val dashFragment = dash_dummy.newInstance()
+                val dashFragment = DashboardFragment.newInstance()
                 setCurrentFragment(dashFragment)
 
                 return@OnNavigationItemSelectedListener true
@@ -51,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setCurrentFragment(dash_dummy.newInstance())
+        setCurrentFragment(DashboardFragment.newInstance())
         setContentView(R.layout.activity_main)
         val bottom_nav: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
