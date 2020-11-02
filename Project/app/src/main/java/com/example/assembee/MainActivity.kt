@@ -1,9 +1,11 @@
 package com.example.assembee
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageButton
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.fragment.app.Fragment
@@ -50,6 +52,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val bottom_nav: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        val button_add_post: ImageButton = findViewById(R.id.addpost)
+        button_add_post.setOnClickListener {
+            val intent = Intent(this, Add_Post :: class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
