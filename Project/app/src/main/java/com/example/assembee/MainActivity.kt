@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_likes -> {
-                val likesFragment = likes_dummy.newInstance()
+                val likesFragment = LikesFragment.newInstance()
                 setCurrentFragment(likesFragment)
 
                 return@OnNavigationItemSelectedListener true

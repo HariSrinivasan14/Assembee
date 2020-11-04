@@ -11,7 +11,7 @@ import android.view.ViewGroup
  * Use the [DashboardFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class likes_dummy : Fragment() {
+class LikesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,6 +21,6 @@ class likes_dummy : Fragment() {
     }
 
     companion object {
-        fun newInstance(): likes_dummy = likes_dummy()
+        fun newInstance(): LikesFragment = LikesFragment()
     }
 }
