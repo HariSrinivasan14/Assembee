@@ -71,7 +71,10 @@ public class ProjectListAdaptor extends RecyclerView.Adapter<ProjectListAdaptor.
                     Log.w("clicked on", "clicked on" + getAdapterPosition());
                     // send intent to notify the new project detail activity
                     Intent intent = new Intent(itemView.getContext(), ProjectDetail.class);
-                    intent.putExtra("project_id", Integer.toString(getAdapterPosition()));
+                    intent.putExtra("title", titles.get(getAdapterPosition()));
+                    intent.putExtra("owner", owners.get(getAdapterPosition()));
+                    intent.putExtra("description", descriptions.get(getAdapterPosition()));
+
                     context.startActivity(intent);
                 }
             });

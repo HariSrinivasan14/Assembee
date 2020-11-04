@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.assembee">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo_transparent"
@@ -10,11 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Assembee">
-        <activity android:name=".ProjectDetail"></activity>
         <activity
-            android:name=".Add_Post"
-            android:label="@string/title_activity_add__post"
-            android:theme="@style/Theme.Assembee.NoActionBar"></activity>
+            android:name=".ProjectDetail"
+            android:theme="@style/Theme.Assembee.NoActionBar"
+            />
+
         <activity
             android:name=".Add_Post"
             android:label="@string/title_activity_add__post"
