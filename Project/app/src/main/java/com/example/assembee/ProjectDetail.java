@@ -2,12 +2,15 @@ package com.example.assembee;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,16 +21,15 @@ public class ProjectDetail extends AppCompatActivity {
     String owner;
     String description;
     ArrayList<String> contributors = new ArrayList<>();
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         setContentView(R.layout.activity_project_detail);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // for an action bar with a back button
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
@@ -56,7 +58,16 @@ public class ProjectDetail extends AppCompatActivity {
         contributors.add("Satya");
         contributors.add("Bill");
         contributors.add("Becky");
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
 
-
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
