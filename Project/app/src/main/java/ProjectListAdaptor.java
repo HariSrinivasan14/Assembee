@@ -61,8 +61,6 @@ public class ProjectListAdaptor extends RecyclerView.Adapter<ProjectListAdaptor.
 
                 @Override
                 public void onClick(View v) {
-                    // get position of the item
-                    Log.w("clicked on", "clicked on" + getAdapterPosition());
                     // send intent to notify the new project detail activity
                     Intent intent = new Intent(itemView.getContext(), ProjectDetail.class);
                     intent.putExtra("title", titles.get(getAdapterPosition()));

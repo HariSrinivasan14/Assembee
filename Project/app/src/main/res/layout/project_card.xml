@@ -12,7 +12,8 @@
         android:layout_height="150dp"
         android:layout_margin="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"

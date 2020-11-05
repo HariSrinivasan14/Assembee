@@ -58,6 +58,7 @@ public class ProjectDetail extends AppCompatActivity {
         contributors.add("Satya");
         contributors.add("Bill");
         contributors.add("Becky");
+        contributors.add("count me in!");
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
