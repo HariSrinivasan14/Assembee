@@ -44,9 +44,10 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        title_list.add("hehehe")
-        owners.add("Elon")
-        descriptions.add("looooooooooooooooooooooooooool")
+        title_list.add("Student Tracker App")
+        owners.add("Deers@UTM")
+        descriptions.add("We need software engineers to build a student tracker app, so that we know where's the best" +
+                " spot to hide from them.")
 
         val exp_json = "{\n" +
                 "    \"user_id\": \"4k1TaKukA65kR99lpRSV\",\n" +

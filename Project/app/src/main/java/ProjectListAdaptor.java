@@ -40,12 +40,6 @@ public class ProjectListAdaptor extends RecyclerView.Adapter<ProjectListAdaptor.
         holder.title.setText(titles.get(position));
         holder.owner.setText(owners.get(position));
         holder.description.setText(descriptions.get(position));
-        holder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.w("clicked on", "clicked on" + titles.get(position));
-            }
-        });
     }
 
     @Override
