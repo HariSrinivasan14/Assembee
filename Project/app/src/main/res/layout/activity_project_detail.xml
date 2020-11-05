@@ -19,7 +19,8 @@
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="5dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -54,6 +55,40 @@
                 android:textColor="@color/yellow"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/project_tags"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:text="Web"/>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:clickable="false"
+                    android:text="Android"/>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:clickable="false"
+                    android:text="iOS"/>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:clickable="false"
+                    android:text="Machine Learning"/>
+
+            </com.google.android.material.chip.ChipGroup>
 
             <TextView
                 android:id="@+id/ProjectDescriptionLabel"
