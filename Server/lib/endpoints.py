@@ -7,6 +7,11 @@ from lib.database import Database
 db = Database()
 
 
+class Errors:
+    not_found = {"error": "Not found"}, 404
+    wtf = {"error": "WTF just happened?"}, 500
+
+
 class User(Resource):
     def get(self, username: str):
         data = {}
@@ -18,13 +23,20 @@ class Project(Resource):
     def get(self, project_id: str):
         data = {}
         data["project_id"] = project_id
-        doc = db.document(f"projects/{project_id}").get()
+        doc = db.collection("projects").document(project_id).get()
         unpack_document(doc, data)
         return data, 200
 
     def post(self):
-        data = request.json
-        return data, 200
+        data = {}
+        try:
+            data["name"] = request.json["name"]
+            data["description"] = request.json["description"]
+            data["owner"] = db.collection("users").document(request.json["owner"])
+            db.collection("projects").add(data)
+            return {}, 200  # TODO: Return project_id after successful creation
+        except Exception:
+            return Errors.wtf
 
 
 class Projects(Resource):
@@ -37,4 +49,16 @@ class Projects(Resource):
             project = {"project_id": doc.id}
             unpack_document(doc, project)
             data["projects"].append(project)
+        return data, 200
+
+
+class Categories(Resource):
+    def get(self):
+        data = {}
+        data["categories"] = []
+        docs = db.collection("categories").stream()
+        for doc in docs:
+            category = {}
+            unpack_document(doc, category)
+            data["categories"].append(category)
         return data, 200
