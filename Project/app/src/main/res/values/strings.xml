@@ -29,7 +29,12 @@
     <string name="IOS_app">IOS App</string>
     <string name="Machine_Learning">Machine Learning</string>
     <string name="AI">AI</string>
-    <string name="Other">Add Post</string>
+    <string name="Other">Other</string>
+
+
+    <string name="Categories">Categories:</string>
+    <string name="Data_Science">Data Science</string>
+    <string name="search">Search for a project...</string>
 
 
 </resources>
