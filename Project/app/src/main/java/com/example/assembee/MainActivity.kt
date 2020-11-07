@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -58,6 +59,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Add_Post :: class.java)
             startActivity(intent)
         }
+
+        // log-in button listener
+        val profile_button: ImageButton = findViewById(R.id.profile);
+        profile_button.setOnClickListener {
+            val signin_intent = Intent(this, Signin::class.java)
+            startActivity(signin_intent)
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
