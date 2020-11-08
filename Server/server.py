@@ -14,7 +14,7 @@ class Server:
         self.api = Api(self.app)
         self.base_url = "/"
 
-    def start(self, port: int, debug: bool = True):
+    def start(self, port: int = None, debug: bool = True):
         try:
             import lib.endpoints as endpoints
             self.app.add_url_rule("/", "index", Pages.index)
@@ -37,8 +37,7 @@ class Server:
             self.app.run(debug=debug, port=port)
         
 
-if __name__ == "__main__":
-    server = Server()
-    app = server.app  # Production WSGI server entry point
-    server.start(port=6969)
+server = Server()
+server.start()
+app = server.app  # Production WSGI server entry point
 
