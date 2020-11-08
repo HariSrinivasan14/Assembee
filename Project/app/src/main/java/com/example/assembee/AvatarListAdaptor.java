@@ -2,6 +2,7 @@ package com.example.assembee;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,13 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
                                 // dismiss the dialog and do nothing
                                 .setNegativeButton(android.R.string.no, null)
                                 .show();
+                    } else {
+                        // open up a profile activity
+                        Intent intent = new Intent(itemView.getContext(), user_profile.class);
+                        intent.putExtra("name", names.get(getAdapterPosition()));
+
+                        context.startActivity(intent);
+
                     }
                 }
             });
