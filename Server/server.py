@@ -38,6 +38,6 @@ class Server:
         
 
 server = Server()
-server.start()
+server.start(6969)
 app = server.app  # Production WSGI server entry point
 
