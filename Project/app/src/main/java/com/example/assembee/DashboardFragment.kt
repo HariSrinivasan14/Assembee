@@ -46,8 +46,6 @@ class DashboardFragment : Fragment() {
             }}
 
         val editor = sharedPreferences?.edit()
-        editor?.clear()
-        editor?.apply()
 
     }
     private fun initRecylerView() {
