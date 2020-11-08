@@ -32,7 +32,7 @@ class Add_Post : AppCompatActivity() {
         val projectName: TextView = findViewById(R.id.textProjectName)
         val contactInfo: TextView = findViewById(R.id.textContactInformation)
         val availability: TextView = findViewById(R.id.textPreferredAvailability)
-        val dd: TextView = findViewById(R.id.textPreferredAvailability)
+        val dd: TextView = findViewById(R.id.TextDD)
         button_addP.setOnClickListener{
             val str: String =  projectName.text.toString()
             val str2: String = contactInfo.text.toString()
