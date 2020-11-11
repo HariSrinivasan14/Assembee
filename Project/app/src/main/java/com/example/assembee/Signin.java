@@ -34,20 +34,26 @@ public class Signin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        // check if there's an account logged in
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account == null) {
+            setContentView(R.layout.activity_signin);
+            Toolbar toolbar = findViewById(R.id.login_toolbar);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn();
+                }
+            });
+        } else {
+            setContentView(R.layout.fragment_first);
+        }
 
 
-        Toolbar toolbar = findViewById(R.id.login_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
     }
 
     @Override
@@ -72,7 +78,7 @@ public class Signin extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Snackbar.make(findViewById(R.id.login_toolbar), "sign in failed", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.login_toolbar), "Sign in failed :(, please try again", Snackbar.LENGTH_LONG).show();
         }
     }
     @Override
