@@ -13,8 +13,9 @@ class Server:
         self.app = Flask("Assembee")
         self.api = Api(self.app)
         self.base_url = "/"
+        self.init()
 
-    def start(self, port: int = None, debug: bool = True):
+    def init(self):
         try:
             import lib.endpoints as endpoints
             self.app.add_url_rule("/", "index", Pages.index)
@@ -33,11 +34,17 @@ class Server:
         except Exception as error:
             print(error)
             raise
-        else:
+
+    def start(self, port: int = None, debug: bool = True):
+        try:
             self.app.run(debug=debug, port=port)
+        except Exception as error:
+            print(error)
+            raise
         
 
 server = Server()
-server.start(6969)
 app = server.app  # Production WSGI server entry point
 
+if __name__ == "__main__":
+    server.start(6969)
