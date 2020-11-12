@@ -69,6 +69,14 @@ public class Signin extends AppCompatActivity {
 
     }
 
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+//
+//        }
+//    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

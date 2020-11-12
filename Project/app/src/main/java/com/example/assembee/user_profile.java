@@ -67,9 +67,9 @@ public class user_profile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(user_profile.this, MainActivity.class);
-                startActivity(intent);
-//                onBackPressed();
+//                Intent intent = new Intent(user_profile.this, MainActivity.class);
+//                startActivity(intent);
+                onBackPressed();
                 return true;
 
             default:
