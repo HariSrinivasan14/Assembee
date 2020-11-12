@@ -1,5 +1,6 @@
 package com.example.assembee;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -8,12 +9,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -21,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class Signin extends AppCompatActivity {
     private static final int RC_SIGN_IN = 0;
+
     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build();
@@ -50,7 +57,13 @@ public class Signin extends AppCompatActivity {
                 }
             });
         } else {
-            setContentView(R.layout.fragment_first);
+//            setContentView(R.layout.activity_user_profile);
+//            Toolbar toolbar = findViewById(R.id.profile_toolbar);
+//            setSupportActionBar(toolbar);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Intent intent = new Intent(this,user_profile.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
         }
 
 
@@ -74,7 +87,13 @@ public class Signin extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            Snackbar.make(findViewById(R.id.login_toolbar), account.getDisplayName(), Snackbar.LENGTH_LONG).show();
+            Intent intent = new Intent(this,user_profile.class);
+            startActivity(intent);
+
+//            setContentView(R.layout.activity_user_profile);
+//            Toolbar toolbar = findViewById(R.id.profile_toolbar);
+//            setSupportActionBar(toolbar);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -85,7 +104,10 @@ public class Signin extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+
+                Intent intent = new Intent(Signin.this, MainActivity.class);
+                startActivity(intent);
+//                onBackPressed();
                 return true;
 
             default:

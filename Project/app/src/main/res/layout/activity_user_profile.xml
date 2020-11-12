@@ -105,9 +105,15 @@
                 tools:layout_editor_absoluteX="131dp"
                 tools:layout_editor_absoluteY="452dp" />
 
-
-
-
+            <Button
+                android:id="@+id/sign_out_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="log out"
+                android:textColor="@color/yellow"
+                style="?attr/materialButtonOutlinedStyle"
+                tools:layout_editor_absoluteX="44dp"
+                tools:layout_editor_absoluteY="578dp" />
 
         </LinearLayout>
 
