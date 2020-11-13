@@ -25,30 +25,38 @@ public class user_profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // check if whether calling from profile button or elsewhere TODO
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
         setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = findViewById(R.id.profile_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        boolean is_user = getIntent().getBooleanExtra("is user", true);
+        if (is_user) {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // get the user attributes from an intent
-        username = GoogleSignIn.getLastSignedInAccount(this).getDisplayName();
+
+            // get the user attributes from an intent
+            username = GoogleSignIn.getLastSignedInAccount(this).getDisplayName();
 //        username = intent.getStringExtra("name");
-        TextView name = findViewById(R.id.profile_name);
-        name.setText(username);
-        findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
+            TextView name = findViewById(R.id.profile_name);
+            name.setText(username);
+            findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signOut();
+                }
+            });
+        } else {
+            // hide the signout button
+            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+            // display the name from intent
+            username = getIntent().getStringExtra("name");
+            TextView name = findViewById(R.id.profile_name);
+            name.setText(username);
+
+        }
     }
 
     private void signOut() {
