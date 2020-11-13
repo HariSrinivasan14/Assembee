@@ -74,15 +74,15 @@
 
                 <ImageView
                     android:id="@+id/ios_image"
-                    android:layout_width="25dp"
-                    android:layout_height="16dp"
+                    android:layout_width="23dp"
+                    android:layout_height="12dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="25dp"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginTop="43dp"
+                    android:layout_marginTop="47dp"
                     android:layout_marginBottom="41dp"
                     android:src="@drawable/ios" />
 
