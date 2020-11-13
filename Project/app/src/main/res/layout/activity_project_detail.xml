@@ -33,8 +33,12 @@
                 android:layout_height="wrap_content"
                 android:text="Project"
                 android:textColor="@color/yellow"
-                android:textSize="20dp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
 
             <TextView
                 android:id="@+id/ProjectOwner"
@@ -42,19 +46,26 @@
                 android:layout_height="wrap_content"
                 android:text="Owner"
                 android:textColor="@color/yellow"
-                android:textSize="20dp"
+                android:textSize="30sp"
                 android:textStyle="bold"
 
                 />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
+
 
             <TextView
                 android:id="@+id/ProjectTags"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Project Tags "
+                android:text="Project Catagories"
                 android:textColor="@color/yellow"
-                android:textSize="20dp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/project_tags"
@@ -89,21 +100,53 @@
                     android:text="Machine Learning"/>
 
             </com.google.android.material.chip.ChipGroup>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
 
             <TextView
                 android:id="@+id/ProjectDescriptionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description and Desired Skills"
+                android:text="Description"
                 android:textColor="@color/yellow"
-                android:textSize="20dp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
 
             <TextView
                 android:id="@+id/ProjectDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
+
+
+            <TextView
+                android:id="@+id/DesiredSkillsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desired Skills"
+                android:textColor="@color/yellow"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
+
+            <TextView
+                android:id="@+id/DesiredSkills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="skills"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
+
 
             <TextView
                 android:id="@+id/PreferredAvailabilityLabel"
@@ -111,14 +154,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Preferred_Availabilty"
                 android:textColor="@color/yellow"
-                android:textSize="20dp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
 
             <TextView
                 android:id="@+id/availbility"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Preferred_Availabilty"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"/>
 
 
             <TextView
@@ -127,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:text="Contributors"
                 android:textColor="@color/yellow"
-                android:textSize="20dp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView

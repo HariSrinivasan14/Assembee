@@ -47,15 +47,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="username"
-                android:textSize="20dp"
+                android:textSize="25sp"
                 android:textColor="@color/yellow"/>
+
+            <TextView
+                android:id="@+id/intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="intro"/>
+
 
             <TextView
                 android:id="@+id/contact_info_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Contacts"
-                android:textSize="20dp"
+                android:textSize="25sp"
                 android:textColor="@color/yellow">
 
             </TextView>
@@ -65,17 +72,53 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Skills"
-                android:textSize="20dp"
+                android:textSize="25sp"
                 android:textColor="@color/yellow">
 
             </TextView>
 
+            <TextView
+                android:id="@+id/availbility_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Availabilty"
+                android:textSize="25sp"
+                android:textColor="@color/yellow">
 
+            </TextView>
 
+            <TextView
+                android:id="@+id/misc_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Miscellaneous"
+                android:textSize="25sp"
+                android:textColor="@color/yellow">
+
+            </TextView>
+
+            <Button
+                android:id="@+id/resume_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Download Resume"
+                tools:layout_editor_absoluteX="131dp"
+                tools:layout_editor_absoluteY="452dp" />
+
+            <Button
+                android:id="@+id/sign_out_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="log out"
+                android:textColor="@color/yellow"
+                style="?attr/materialButtonOutlinedStyle"
+                tools:layout_editor_absoluteX="44dp"
+                tools:layout_editor_absoluteY="578dp" />
 
         </LinearLayout>
 
     </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

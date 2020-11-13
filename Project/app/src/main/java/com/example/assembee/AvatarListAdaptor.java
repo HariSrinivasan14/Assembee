@@ -72,6 +72,8 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
                     } else {
                         // open up a profile activity
                         Intent intent = new Intent(itemView.getContext(), user_profile.class);
+                        // this bool indicates not to display logout & logged-in user username etc.
+                        intent.putExtra("is user", false);
                         intent.putExtra("name", names.get(getAdapterPosition()));
 
                         context.startActivity(intent);

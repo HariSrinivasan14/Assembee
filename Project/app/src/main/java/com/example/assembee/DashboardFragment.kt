@@ -1,6 +1,8 @@
 package com.example.assembee
 
 import ProjectListAdaptor
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -25,12 +27,26 @@ class DashboardFragment : Fragment() {
     private var title_list: ArrayList<String> = ArrayList()
     private var owners: ArrayList<String> = ArrayList()
     private var descriptions: ArrayList<String> = ArrayList()
+    private val sharedPrefFile = "kotlinsharedpreference"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title_list = ArrayList()
         owners = ArrayList()
         descriptions = ArrayList()
+        val sharedPreferences: SharedPreferences? = this.activity?.getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
+        sharedPreferences?.getString("ProjectName", "TODO")?.let {
+            if(it != "TODO"){
+            title_list.add(it)}}
+
+        sharedPreferences?.getString("dd", "TODO")?.let {
+            if(it != "TODO"){
+            descriptions.add(it)
+                owners.add("Yiqi")
+            }}
+
+        val editor = sharedPreferences?.edit()
+
     }
     private fun initRecylerView() {
         val layout_manager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

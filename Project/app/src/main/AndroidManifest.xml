@@ -12,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Assembee">
-        <activity android:name=".user_profile"
-            android:theme="@style/Theme.Assembee.NoActionBar"/>
+        <activity android:name=".project_join_request"></activity>
+        <activity
+            android:name=".user_profile"
+            android:theme="@style/Theme.Assembee.NoActionBar" />
         <activity
             android:name=".Signin"
             android:theme="@style/Theme.Assembee.NoActionBar" />
