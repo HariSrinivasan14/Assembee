@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -24,8 +23,9 @@
             <SearchView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"/>
+
             <TextView
                 android:id="@+id/Categories"
                 android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                 android:layout_marginBottom="10dp"
                 android:inputType="text"
                 android:text="@string/Categories"
-                android:textColor="@color/black"
+                android:textColor="@color/yellow"
                 android:textSize="25sp"
                 tools:ignore="TextViewEdits" />
 
@@ -55,7 +55,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="57dp"
                     android:text="@string/IOS_app"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
@@ -114,7 +114,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="70dp"
                     android:text="@string/Android_App"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
@@ -161,7 +161,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="70dp"
                     android:text="@string/Web"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
@@ -207,7 +207,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="70dp"
                     android:text="@string/Machine_Learning"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
@@ -253,7 +253,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="70dp"
                     android:text="@string/Other"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
