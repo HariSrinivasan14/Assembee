@@ -22,11 +22,34 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="Current Projects"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         android:textColor="@color/yellow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pendingJoinRequestsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Pending Join Requests"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dash_project_recycler_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pending_join_request_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/pendingJoinRequestsLabel"
+        tools:layout_editor_absoluteX="16dp" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
