@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Project {
+public class Project implements Serializable {
     int projectId;
     int ownerId;
-    ArrayList<String> catagories;
+    ArrayList<String> categories;
     String preferredAvailability;
 
     public int getProjectId() {
@@ -22,12 +23,12 @@ public class Project {
         this.ownerId = ownerId;
     }
 
-    public ArrayList<String> getCatagories() {
-        return catagories;
+    public ArrayList<String> getCategories() {
+        return categories;
     }
 
-    public void setCatagories(ArrayList<String> catagories) {
-        this.catagories = catagories;
+    public void setCategories(ArrayList<String> categories) {
+        this.categories = categories;
     }
 
     public String getPreferredAvailability() {
