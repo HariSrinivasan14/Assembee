@@ -13,12 +13,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_new_posting">Hello blank fragment</string>
     <string name="New_Post">New Project:</string>
-    <string name="Project_Category">Project Category:</string>
+    <string name="Project_Category">Project Categories:</string>
     <string name="Contact_Information">Contact Information:</string>
     <string name="Preferred_Availabilty">Preferred Availability:</string>
     <string name="DD">Description and Desired Skills:</string>
     <string name="Post">Post</string>
-    <string name="Project_Name">Project Name</string>
+    <string name="Project_Name">Project Name:</string>
     <string name="Profile">Profile button</string>
     <string name="add_post">Add Post</string>
     <string name="title_activity_add__post">title_activity_add__post</string>
