@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Assembee">
-        <activity android:name=".project_join_request"></activity>
+        <activity android:name=".search_project"></activity>
+        <activity android:name=".project_join_request" />
         <activity
             android:name=".user_profile"
             android:theme="@style/Theme.Assembee.NoActionBar" />
