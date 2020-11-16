@@ -27,12 +27,11 @@
                 android:layout_margin="16dp"/>
 
             <TextView
-                android:id="@+id/Categories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:inputType="text"
                 android:text="@string/Categories"
@@ -41,6 +40,7 @@
                 tools:ignore="TextViewEdits" />
 
             <RelativeLayout
+                android:id="@+id/IOS_category"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 
@@ -88,8 +88,10 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/Android_category"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+
 
                 <ImageView
                     android:id="@+id/imageButton3"
@@ -135,6 +137,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/Web_category"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 
@@ -181,6 +184,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/ML_category"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 
@@ -227,6 +231,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/Other_category"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 
