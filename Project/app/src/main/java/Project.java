@@ -2,10 +2,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Project implements Serializable {
-    int projectId;
-    int ownerId;
-    ArrayList<String> categories;
-    String preferredAvailability;
+    private int projectId;
+    private int ownerId;
+    private ArrayList<String> categories;
+    private String preferredAvailability;
+    private String projectName;
+    private String contactInfo;
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+    public String getProjectName() {
+        return projectName;
+    }
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
 
     public int getProjectId() {
         return projectId;
