@@ -19,7 +19,6 @@
             tools:layout_editor_absoluteY="0dp">
 
 
-
             <SearchView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
@@ -42,7 +41,27 @@
             <RelativeLayout
                 android:id="@+id/IOS_category"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="92dp">
+
+                <ImageButton
+                    android:id="@+id/IOS"
+                    android:layout_width="401dp"
+                    android:layout_height="89dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:background="?android:selectableItemBackground" />
+
+                <!--                <selector-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent">-->
+
+                <!--                    <item-->
+                <!--                        android:drawable="@color/my_bluish_color"-->
+                <!--                        android:state_pressed="true" />-->
+
+                <!--                    <item android:drawable="@android:color/transparent" />-->
+                <!--                </selector>-->
+
 
                 <TextView
                     android:id="@+id/ios"
@@ -61,16 +80,16 @@
 
                 <ImageView
                     android:id="@+id/ios_image"
-                    android:layout_width="23dp"
-                    android:layout_height="12dp"
+                    android:layout_width="37dp"
+                    android:layout_height="22dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="47dp"
-                    android:layout_marginBottom="41dp"
+                    android:layout_marginStart="19dp"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="42dp"
                     android:src="@drawable/ios" />
 
                 <ImageButton
@@ -88,22 +107,16 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/Android_category"
+
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 
 
-                <ImageView
-                    android:id="@+id/imageButton3"
-                    android:layout_width="295dp"
-                    android:layout_height="11dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginRight="36dp"
-                    android:layout_marginBottom="3dp"
-                    android:src="@drawable/line" />
+                <ImageButton
+                    android:id="@+id/Android_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground" />
 
                 <TextView
                     android:id="@+id/android"
@@ -134,12 +147,30 @@
                     android:layout_marginBottom="39dp"
                     android:src="@drawable/android" />
 
+                <ImageView
+                    android:id="@+id/imageButton3"
+                    android:layout_width="295dp"
+                    android:layout_height="13dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginRight="36dp"
+                    android:layout_marginBottom="3dp"
+                    android:src="@drawable/line" />
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/Web_category"
+
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+
+                <ImageButton
+                    android:id="@+id/Web_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground" />
 
                 <ImageView
                     android:id="@+id/imageButton4"
@@ -184,9 +215,15 @@
 
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/ML_category"
+
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+
+                <ImageButton
+                    android:id="@+id/ML_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground" />
 
                 <ImageView
 
@@ -231,9 +268,15 @@
 
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/Other_category"
+
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+
+                <ImageButton
+                    android:id="@+id/Other_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground" />
 
                 <ImageView
 

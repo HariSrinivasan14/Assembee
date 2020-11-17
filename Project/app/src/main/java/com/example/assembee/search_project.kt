@@ -1,5 +1,6 @@
 package com.example.assembee
 
+import Project
 import ProjectListAdaptor
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,10 @@ import com.android.volley.Response
 import com.android.volley.toolbox.*
 import org.json.JSONArray
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -31,54 +36,50 @@ class search_project : AppCompatActivity() {
 
 
         super.onCreate(savedInstanceState)
-
-
         setContentView(R.layout.activity_search_project)
+
         val projectName = intent.getStringExtra("ProjectName")
         Log.d("Add_Post", "the value is $projectName")
         //val details: JSONObject? = projectName?.let { sendGet(it) }
-        
+        val details: JSONObject? = projectName?.let { sendGet(it) }
         val layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val recyclerView = findViewById<RecyclerView>(R.id.search_project_recycler_view)
         recyclerView?.layoutManager = layout_manager
         val search_list_adaptor: SearchListAdaptor = SearchListAdaptor(title_list, owners, descriptions, this);
         recyclerView?.adapter = search_list_adaptor
 
-       // val details: JSONObject? = projectName?.let { sendGet(it) }
-
-//        title_list.add("test")
-//        owners.add("t est")
-//        descriptions.add("TESTSTESTSETEST")
+        title_list.add("test")
+        owners.add("t est")
+        descriptions.add("TESTSTESTSETEST")
         //createPosts(details)
         Log.d("info", "got here")
-
     }
 
     fun sendGet(projectName: String): JSONObject?{
         Log.d("Add_Post 2", "the value is $projectName")
         var results: JSONObject? = null
-        val cache = DiskBasedCache(cacheDir, 2048 * 2048) // 2MB cap
+        //val cache = DiskBasedCache(cacheDir, 2048 * 2048) // 2MB cap
 
         // Set up the network to use HttpURLConnection as the HTTP client.
-        val network = BasicNetwork(HurlStack())
+//        val network = BasicNetwork(HurlStack())
 
         // Instantiate the RequestQueue with the cache and network. Start the queue.
-        val requestQueue = RequestQueue(cache, network).apply {
-            start()
-        }
+//        val requestQueue = RequestQueue(cache, network).apply {
+//            start()
+//        }
 
         val queue = Volley.newRequestQueue(this)
         val url = "https://assembee.dissi.dev/search/$projectName"
 
         val stringRequest = StringRequest(
             Request.Method.GET, url,
-            Response.Listener<String> { response ->
+            { response ->
                 // Display the first 500 characters of the response string.
                 Log.d("info", "Response is: $response")
                 results = JSONObject(response)
-                //createPosts(results)
+                createPosts(results)
             },
-            Response.ErrorListener { Log.d("info", "didn't work") })
+            { Log.d("info", "didn't work") })
 
         queue.add(stringRequest)
         return results
