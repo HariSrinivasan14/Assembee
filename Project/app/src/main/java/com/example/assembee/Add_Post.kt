@@ -2,7 +2,9 @@ package com.example.assembee
 
 import Project
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,10 +12,7 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Scroller
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.chip.Chip
 import java.util.*
@@ -32,8 +31,29 @@ class Add_Post : AppCompatActivity() {
 //        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
         val button_cancel: ImageButton = findViewById(R.id.cancel_button)
         button_cancel.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(this).create()
+            alertDialog.setTitle("Delete Post")
+            alertDialog.setMessage("Do you want to delete the post?")
 
-            onBackPressed()
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes"
+            ) { dialog, which -> dialog.dismiss()
+                onBackPressed()
+
+            }
+
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No"
+            ) { dialog, which -> dialog.dismiss() }
+            alertDialog.show()
+
+            val buttonPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            val buttonNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+            val layoutParams = buttonPositive.layoutParams as LinearLayout.LayoutParams
+            layoutParams.weight = 10f
+            layoutParams.leftMargin = 10
+            layoutParams.rightMargin = 30
+            buttonPositive.layoutParams = layoutParams
+            buttonNegative.layoutParams = layoutParams
         }
         val button_addP: Button = findViewById(R.id.postButton)
         val projectName: TextView = findViewById(R.id.textProjectName)

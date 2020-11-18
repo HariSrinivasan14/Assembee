@@ -146,7 +146,7 @@
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
-            
+            android:textColor="@color/black"
             android:paddingLeft="15dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
@@ -172,6 +172,7 @@
             android:id="@+id/textPreferredAvailability"
             android:layout_width="326dp"
             android:layout_height="65dp"
+            android:textColor="@color/black"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
@@ -219,6 +220,7 @@
             android:paddingEnd="10dp"
             android:hint="@null"
             android:autofillHints="@string/DD"
+            android:textColor="@color/black"
             />
 
         <Button
