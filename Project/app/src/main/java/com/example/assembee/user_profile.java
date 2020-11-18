@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,12 +14,29 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.mikhaellopez.circularimageview.CircularImageView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 public class user_profile extends AppCompatActivity {
     String username;
@@ -36,18 +55,52 @@ public class user_profile extends AppCompatActivity {
                     .build();
             mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+            // get saved userId
+            SharedPreferences sh
+                    = getSharedPreferences("sharedPref",
+                    MODE_PRIVATE);
 
-            // get the user attributes from an intent
-            username = GoogleSignIn.getLastSignedInAccount(this).getDisplayName();
-//        username = intent.getStringExtra("name");
-            TextView name = findViewById(R.id.profile_name);
-            name.setText(username);
-            findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
+            String userId = sh.getString("userId", "");
+
+            // fetch the user profile via api
+            String url = "https://assembee.dissi.dev/user/" + userId;
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override
-                public void onClick(View v) {
-                    signOut();
+                public void onResponse(JSONObject response) {
+                    Log.d("Response", response.toString());
+                    TextView name = findViewById(R.id.profile_name);
+                    try {
+                        name.setText(response.getString("name"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    CircularImageView avatar = findViewById(R.id.user_avatar);
+                    try {
+                        Glide.with(user_profile.this)
+                                .load(response.getString("avatar"))
+                                .into(avatar);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            signOut();
+                        }
+                    });
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("Error", "Error: " + error.getMessage());
+                    Toast.makeText(user_profile.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
             });
+            RequestQueue requstQueue = Volley.newRequestQueue(this);
+            requstQueue.add(req);
+
         } else {
             // hide the signout button
             findViewById(R.id.sign_out_button).setVisibility(View.GONE);
