@@ -25,19 +25,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-// see here https://developers.google.com/identity/sign-in/android/sign-in
 
 public class Signin extends AppCompatActivity {
     private static final int RC_SIGN_IN = 0;
@@ -71,25 +63,19 @@ public class Signin extends AppCompatActivity {
                 }
             });
         } else {
-//            setContentView(R.layout.activity_user_profile);
-//            Toolbar toolbar = findViewById(R.id.profile_toolbar);
-//            setSupportActionBar(toolbar);
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            Intent intent = new Intent(this,user_profile.class);
+            Intent intent = new Intent(this, user_profile.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
         }
-
-
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-//
-//        }
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+            onBackPressed();
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -111,8 +97,8 @@ public class Signin extends AppCompatActivity {
             // Signed in successfully, show authenticated UI.
             JSONObject post_body = new JSONObject();
             post_body.put("name", account.getDisplayName())
-                     .put("avatar", account.getPhotoUrl().toString())
-                     .put("email", account.getEmail());
+                    .put("avatar", account.getPhotoUrl().toString())
+                    .put("email", account.getEmail());
 
             String url = "https://assembee.dissi.dev/user";
             RequestQueue requstQueue = Volley.newRequestQueue(this);
@@ -139,7 +125,7 @@ public class Signin extends AppCompatActivity {
                             edit.commit();
 
                             Log.w("resp", response.toString());
-                            Intent intent = new Intent(Signin.this,user_profile.class);
+                            Intent intent = new Intent(Signin.this, user_profile.class);
                             intent.putExtra("is_user", true);
                             startActivity(intent);
                         }
@@ -150,22 +136,18 @@ public class Signin extends AppCompatActivity {
                             Log.w("volley", "error");
                         }
                     }
-            ){
-                //here I want to post data to sever
+            ) {
             };
             requstQueue.add(body);
 
 
-//            setContentView(R.layout.activity_user_profile);
-//            Toolbar toolbar = findViewById(R.id.profile_toolbar);
-//            setSupportActionBar(toolbar);
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         } catch (ApiException | JSONException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Snackbar.make(findViewById(R.id.login_toolbar), "Sign in failed :(, please try again", Snackbar.LENGTH_LONG).show();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

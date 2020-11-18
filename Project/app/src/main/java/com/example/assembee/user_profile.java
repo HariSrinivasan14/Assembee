@@ -68,20 +68,20 @@ public class user_profile extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.d("Response", response.toString());
+                    CircularImageView avatar = findViewById(R.id.user_avatar);
+
                     TextView name = findViewById(R.id.profile_name);
                     try {
                         name.setText(response.getString("name"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    CircularImageView avatar = findViewById(R.id.user_avatar);
-                    try {
                         Glide.with(user_profile.this)
                                 .load(response.getString("avatar"))
                                 .into(avatar);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    // sign out button; only for user logged in
                     findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
