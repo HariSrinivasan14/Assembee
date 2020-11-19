@@ -82,6 +82,7 @@ class DashboardFragment : Fragment() {
 
                         project_list_adaptor.notifyDataSetChanged()
                         Log.d("length of adaptor", ""+project_list_adaptor.itemCount)
+                        view?.findViewById<TextView>(R.id.notLoggedInLabel)?.visibility = View.GONE;
 
                     },
                     Response.ErrorListener { error ->
@@ -95,59 +96,60 @@ class DashboardFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-//        // clear all lists
-////        title_list.clear()
-////        owners.clear()
-////        descriptions.clear()
-////        projectIds.clear()
-//
-//        // fetch the projects of the user & re-render project list
-//        Log.w("item count", ""+project_list_adaptor.itemCount)
-//
-//        val sp: SharedPreferences? = activity?.getSharedPreferences(
-//            "sharedPref",
-//            Context.MODE_PRIVATE
-//        )
-//
-//        if(sp != null) {
-//            if (sp.getString("userId", null) != null) {
-//                // fetch projects from api
-//                val url: String = "https://assembee.dissi.dev/projects/" +
-//                        (sp.getString("userId", null));
-//                val queue = Volley.newRequestQueue(context)
-//
-//                val req = JsonObjectRequest(
-//                    Request.Method.GET,
-//                    url,
-//                    null,
-//                    Response.Listener { response ->
-//                        Log.d("Response", response.toString())
-//                        Log.d("responseID", response.getString("user_id"))
-//                        var owner_projects: JSONArray = response.getJSONArray("owner")
-//                        Log.w("owner_p", owner_projects.toString())
-//                        var cont_projects: JSONArray = response.getJSONArray("contributor")
-//                        Log.w("cont_p", cont_projects.toString())
-//
-//                        for (i in 0 until owner_projects.length()) {
-//                            var project: JSONObject = owner_projects.getJSONObject(i)
-//                            title_list.add(project.getString("name"))
-//                            owners.add(project.getJSONObject("owner").getString("name"))
-//                            descriptions.add(project.getString("description"))
-//                            projectIds.add(project.getString("id"))
-//                        }
-//                        for (i in 0 until cont_projects.length()) {
-//                            // TODO
-//                        }
-//
-//                        Log.d("length of lists", ""+title_list.size);
-//                        project_list_adaptor.notifyDataSetChanged()
-//                    },
-//                    Response.ErrorListener { error ->
-//                        Log.w("dash error", error)
-//                    })
-//                queue.add(req)
-//            }
-//        }
+        // clear all lists
+        title_list.clear()
+        owners.clear()
+        descriptions.clear()
+        projectIds.clear()
+
+        // fetch the projects of the user & re-render project list
+        Log.w("item count", ""+project_list_adaptor.itemCount)
+
+        val sp: SharedPreferences? = activity?.getSharedPreferences(
+            "sharedPref",
+            Context.MODE_PRIVATE
+        )
+
+        if(sp != null) {
+            if (sp.getString("userId", null) != null) {
+                // fetch projects from api
+                val url: String = "https://assembee.dissi.dev/projects/" +
+                        (sp.getString("userId", null));
+                val queue = Volley.newRequestQueue(context)
+
+                val req = JsonObjectRequest(
+                    Request.Method.GET,
+                    url,
+                    null,
+                    Response.Listener { response ->
+                        Log.d("Response", response.toString())
+                        Log.d("responseID", response.getString("user_id"))
+                        var owner_projects: JSONArray = response.getJSONArray("owner")
+                        Log.w("owner_p", owner_projects.toString())
+                        var cont_projects: JSONArray = response.getJSONArray("contributor")
+                        Log.w("cont_p", cont_projects.toString())
+
+                        for (i in 0 until owner_projects.length()) {
+                            var project: JSONObject = owner_projects.getJSONObject(i)
+                            title_list.add(project.getString("name"))
+                            owners.add(project.getJSONObject("owner").getString("name"))
+                            descriptions.add(project.getString("description"))
+                            projectIds.add(project.getString("id"))
+                        }
+                        for (i in 0 until cont_projects.length()) {
+                            // TODO
+                        }
+
+                        Log.d("length of lists", ""+title_list.size);
+                        view?.findViewById<TextView>(R.id.notLoggedInLabel)?.visibility = View.GONE;
+                        project_list_adaptor.notifyDataSetChanged()
+                    },
+                    Response.ErrorListener { error ->
+                        Log.w("dash error", error)
+                    })
+                queue.add(req)
+            }
+        }
 
     }
 
@@ -155,8 +157,14 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        val sp: SharedPreferences? = activity?.getSharedPreferences(
+            "sharedPref",
+            Context.MODE_PRIVATE
+        )
         var res = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        if(sp != null) {
+            view?.findViewById<TextView>(R.id.notLoggedInLabel)?.visibility = View.GONE;
+        }
 
         // set up adaptor
         val layout_manager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
