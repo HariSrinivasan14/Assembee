@@ -11,7 +11,7 @@ import android.view.ViewGroup
  * Use the [DashboardFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class explore_dummy : Fragment() {
+class ExploreFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,6 +21,6 @@ class explore_dummy : Fragment() {
     }
 
     companion object {
-        fun newInstance(): explore_dummy = explore_dummy()
+        fun newInstance(): ExploreFragment = ExploreFragment()
     }
 }

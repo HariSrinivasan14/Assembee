@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageButton
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_explore -> {
-                val exploreFragment = explore_dummy.newInstance()
+                val exploreFragment = ExploreFragment.newInstance()
                 setCurrentFragment(exploreFragment)
                 return@OnNavigationItemSelectedListener true
             }
