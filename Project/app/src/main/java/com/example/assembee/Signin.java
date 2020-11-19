@@ -119,6 +119,7 @@ public class Signin extends AppCompatActivity {
                                 edit.putString(
                                         "userId",
                                         response.getString("id"));
+                                edit.putString("avatarURL", response.getString("avatar"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
