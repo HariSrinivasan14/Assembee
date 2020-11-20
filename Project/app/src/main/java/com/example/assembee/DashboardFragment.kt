@@ -18,7 +18,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.bumptech.glide.Glide
+
 import com.mikhaellopez.circularimageview.CircularImageView
 import org.json.JSONArray
 import org.json.JSONException
