@@ -32,7 +32,7 @@ import org.json.JSONObject
 class Add_Post : AppCompatActivity() {
 
 
-    private val sharedPrefFile = "kotlinsharedpreference"
+    private val sharedPrefFile = "sharedPref"
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class Add_Post : AppCompatActivity() {
         button_cancel.setOnClickListener {
             val alertDialog = AlertDialog.Builder(this).create()
             alertDialog.setTitle("Delete Post")
-            alertDialog.setMessage("Do you want to delete the post?")
+            alertDialog.setMessage("Are you sure you want to discard the project draft?")
 
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes"
             ) { dialog, which -> dialog.dismiss()
@@ -124,20 +124,9 @@ class Add_Post : AppCompatActivity() {
             new_post.put("skills", str5)
             val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
             val temp: String? = sharedPreferences.getString("userId", null)
-            new_post.put("owner", "70tBgl7emQVO2NL11Bvu")
-            Log.d("Add_Post", "the value is kjlkjl")
-
-            var temp_list = listOf("Web")
-            var test: JSONObject = JSONObject()
-            test.put("name", "test123")
-            test.put("description", "test123")
-            test.put("availability", "test123")
-            test.put("categories", temp_list)
-            test.put("skills", "test123")
-            test.put("owner", "hari")
+            new_post.put("owner", temp)
             //Post request
-            Log.w("this value of test is:", temp.toString())
-            Log.w("this value of test is:", new_post.toString())
+
             val url = "https://assembee.dissi.dev/project"
             val requstQueue = Volley.newRequestQueue(this)
 
@@ -158,20 +147,6 @@ class Add_Post : AppCompatActivity() {
                     }
                 ) {}
             requstQueue.add(body)
-
-
-            // shared preferences
-//            val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
-//            val editor:SharedPreferences.Editor =  sharedPreferences.edit()
-//            editor.putString("ProjectName", str)
-//            editor.putString("contactInfo", str2)
-//            editor.putString("availabilityInfo", str3)
-//            editor.putString("dd", str4)
-//            editor.apply()
-//            editor.commit()
-
-//            val intent = Intent(this, MainActivity :: class.java)
-//            startActivity(intent)
             onBackPressed()
 
         }
