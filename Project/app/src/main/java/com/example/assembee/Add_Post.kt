@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley
 //import com.android.volley.toolbox.JsonObjectRequest
 //import com.android.volley.toolbox.Volley
 import com.google.android.material.chip.Chip
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -112,18 +113,31 @@ class Add_Post : AppCompatActivity() {
             val str2: String = contactInfo.text.toString()
             val str3: String = availability.text.toString()
             val str4: String = dd.text.toString()
-            var chip_array = get_chips()
+            val str5: String = desiredskills.text.toString()
+            var chip_array = get_chips().toCollection(ArrayList())
+            val JA = JSONArray(chip_array)
             var new_post: JSONObject = JSONObject()
             new_post.put("name", str)
-            new_post.put("description", str2)
+            new_post.put("description", str4)
             new_post.put("availability", str3)
-            new_post.put("categories", get_chips())
-            new_post.put("owner", "abc")
+            new_post.put("categories", JA)
+            new_post.put("skills", str5)
+            val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+            val temp: String? = sharedPreferences.getString("userId", null)
+            new_post.put("owner", "70tBgl7emQVO2NL11Bvu")
             Log.d("Add_Post", "the value is kjlkjl")
-            println("the value is $str")
 
+            var temp_list = listOf("Web")
+            var test: JSONObject = JSONObject()
+            test.put("name", "test123")
+            test.put("description", "test123")
+            test.put("availability", "test123")
+            test.put("categories", temp_list)
+            test.put("skills", "test123")
+            test.put("owner", "hari")
             //Post request
-
+            Log.w("this value of test is:", temp.toString())
+            Log.w("this value of test is:", new_post.toString())
             val url = "https://assembee.dissi.dev/project"
             val requstQueue = Volley.newRequestQueue(this)
 
@@ -174,13 +188,13 @@ class Add_Post : AppCompatActivity() {
             checkedChips.add("Web")
         }
         if(chip2.isChecked){
-            checkedChips.add("Android_App")
+            checkedChips.add("Android App")
         }
         if(chip3.isChecked){
-            checkedChips.add("IOS_app")
+            checkedChips.add("IOS app")
         }
         if(chip4.isChecked){
-            checkedChips.add("Machine_Learning")
+            checkedChips.add("Machine Learning")
         }
         if(chip5.isChecked){
             checkedChips.add("AI")
