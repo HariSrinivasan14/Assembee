@@ -38,6 +38,7 @@ import java.util.ArrayList;
 
 public class ProjectDetail extends AppCompatActivity {
     ArrayList<String> contributors;
+    ArrayList<String> userIds;
     AvatarListAdaptor avatarListAdaptor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class ProjectDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         contributors = new ArrayList<>();
+        userIds = new ArrayList<>();
 
         // get projectId intent
         Intent intent = getIntent();
@@ -61,7 +63,7 @@ public class ProjectDetail extends AppCompatActivity {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView avatar_recycler = findViewById(R.id.avatar_recyler_view);
         avatar_recycler.setLayoutManager(manager);
-        avatarListAdaptor = new AvatarListAdaptor(contributors, this);
+        avatarListAdaptor = new AvatarListAdaptor(contributors, userIds, this);
         avatar_recycler.setAdapter(avatarListAdaptor);
 
         // fetch projects from api
@@ -101,26 +103,7 @@ public class ProjectDetail extends AppCompatActivity {
         queue.add(req);
 
         // populate the contributor list
-        contributors.add("David");
-        contributors.add("Elon");
-        contributors.add("Jeff");
-        contributors.add("Satya");
-        contributors.add("Becky");
-        contributors.add("count me in!");
     }
-//    @Nullable
-//    @Override
-//    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-//        View res = super.onCreateView(parent, name, context, attrs);
-//        // set contributors's manager
-//        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        RecyclerView avatar_recycler = findViewById(R.id.avatar_recyler_view);
-//        avatar_recycler.setLayoutManager(manager);
-//        avatarListAdaptor = new AvatarListAdaptor(contributors, this);
-//        avatar_recycler.setAdapter(avatarListAdaptor);
-//
-//        return res;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
