@@ -147,17 +147,18 @@ class Add_Post : AppCompatActivity() {
 
 
             // shared preferences
-            val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
-            val editor:SharedPreferences.Editor =  sharedPreferences.edit()
-            editor.putString("ProjectName", str)
-            editor.putString("contactInfo", str2)
-            editor.putString("availabilityInfo", str3)
-            editor.putString("dd", str4)
-            editor.apply()
-            editor.commit()
+//            val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+//            val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+//            editor.putString("ProjectName", str)
+//            editor.putString("contactInfo", str2)
+//            editor.putString("availabilityInfo", str3)
+//            editor.putString("dd", str4)
+//            editor.apply()
+//            editor.commit()
 
-            val intent = Intent(this, MainActivity :: class.java)
-            startActivity(intent)
+//            val intent = Intent(this, MainActivity :: class.java)
+//            startActivity(intent)
+            onBackPressed()
 
         }
     }

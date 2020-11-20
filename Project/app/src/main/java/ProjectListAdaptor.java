@@ -19,12 +19,14 @@ public class ProjectListAdaptor extends RecyclerView.Adapter<ProjectListAdaptor.
     private ArrayList<String> titles = new ArrayList<>();
     private ArrayList<String> owners = new ArrayList<>();
     private ArrayList<String> descriptions = new ArrayList<>();
+    private ArrayList<String> projectIds = new ArrayList<>();
     private Context context;
 
-    public ProjectListAdaptor(ArrayList<String> titles, ArrayList<String> owners, ArrayList<String> descriptions, Context context) {
+    public ProjectListAdaptor(ArrayList<String> titles, ArrayList<String> owners, ArrayList<String> descriptions, ArrayList<String> projectIds, Context context) {
         this.titles = titles;
         this.owners = owners;
         this.descriptions = descriptions;
+        this.projectIds = projectIds;
         this.context = context;
     }
 
@@ -61,11 +63,11 @@ public class ProjectListAdaptor extends RecyclerView.Adapter<ProjectListAdaptor.
 
                 @Override
                 public void onClick(View v) {
+                    Log.d("clicked card", ""+getAdapterPosition());
                     // send intent to notify the new project detail activity
-                    Intent intent = new Intent(itemView.getContext(), ProjectDetail.class);
-                    intent.putExtra("title", titles.get(getAdapterPosition()));
-                    intent.putExtra("owner", owners.get(getAdapterPosition()));
-                    intent.putExtra("description", descriptions.get(getAdapterPosition()));
+                    Intent intent = new Intent(context, ProjectDetail.class);
+//                    Log.d("adaptor length", ""+getItemCount());
+                    intent.putExtra("projectId", projectIds.get(getAdapterPosition()));
 
                     context.startActivity(intent);
                 }
