@@ -16,7 +16,8 @@
     <string name="Project_Category">Project Categories:</string>
     <string name="Contact_Information">Contact Information:</string>
     <string name="Preferred_Availabilty">Preferred Availability:</string>
-    <string name="DD">Description and Desired Skills:</string>
+    <string name="DD">Project Description:</string>
+    <string name="Desired_Skills">Desired Skills:</string>
     <string name="Post">Post</string>
     <string name="Project_Name">Project Name:</string>
     <string name="Profile">Profile button</string>

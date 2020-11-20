@@ -4,18 +4,28 @@ import Project
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+//import com.android.volley.Request
+//import com.android.volley.VolleyError
+//import com.android.volley.toolbox.JsonObjectRequest
+//import com.android.volley.toolbox.Volley
 import com.google.android.material.chip.Chip
-import java.util.*
+import org.json.JSONObject
 
 
 class Add_Post : AppCompatActivity() {
@@ -60,6 +70,7 @@ class Add_Post : AppCompatActivity() {
         val contactInfo: TextView = findViewById(R.id.textContactInformation)
         val availability: TextView = findViewById(R.id.textPreferredAvailability)
         val dd: TextView = findViewById(R.id.TextDD)
+        val desiredskills: TextView = findViewById(R.id.TextDesiredSkills)
         contactInfo.setOnTouchListener(View.OnTouchListener { v, event ->
             if (v.id === R.id.textContactInformation) {
                 v.parent.requestDisallowInterceptTouchEvent(true)
@@ -87,20 +98,53 @@ class Add_Post : AppCompatActivity() {
             }
             false
         })
+        desiredskills.setOnTouchListener(View.OnTouchListener { v, event ->
+            if (v.id === R.id.TextDesiredSkills) {
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                when (event.action and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_UP -> v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false
+        })
         button_addP.setOnClickListener{
             val str: String =  projectName.text.toString()
             val str2: String = contactInfo.text.toString()
             val str3: String = availability.text.toString()
             val str4: String = dd.text.toString()
             var chip_array = get_chips()
-            var new_post = Project()
-            new_post.setProjectName(str)
-            new_post.setContactInfo(str2)
-            new_post.setPreferredAvailability(str3)
-            new_post.setDescription(str4)
-            new_post.setCategories(get_chips() as ArrayList<String>?)
-            Log.d("Add_Post", "the value is ${new_post.categories}")
+            var new_post: JSONObject = JSONObject()
+            new_post.put("name", str)
+            new_post.put("description", str2)
+            new_post.put("availability", str3)
+            new_post.put("categories", get_chips())
+            new_post.put("owner", "abc")
+            Log.d("Add_Post", "the value is kjlkjl")
             println("the value is $str")
+
+            //Post request
+
+            val url = "https://assembee.dissi.dev/project"
+            val requstQueue = Volley.newRequestQueue(this)
+
+            val body: JsonObjectRequest =
+                object : JsonObjectRequest(
+                    Request.Method.POST, url, new_post,
+                    Response.Listener<JSONObject?> {
+                        fun onResponse(response: JSONObject) {
+
+                            Log.w("resp", response.toString())
+
+                        }
+                    },
+                    object : Response.ErrorListener {
+                        override fun onErrorResponse(error: VolleyError?) {
+                            Log.w("volley", "error")
+                        }
+                    }
+                ) {}
+            requstQueue.add(body)
+
 
             // shared preferences
             val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
@@ -145,8 +189,5 @@ class Add_Post : AppCompatActivity() {
         }
         return checkedChips
     }
-//    fun createPost(new_post: JSONObject){
-//
-//    }
 
 }

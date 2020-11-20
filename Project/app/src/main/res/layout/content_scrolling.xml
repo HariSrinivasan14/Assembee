@@ -223,6 +223,40 @@
             android:textColor="@color/black"
             />
 
+        <TextView
+            android:id="@+id/DesiredSkills"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/Desired_Skills"
+            android:textColor="@color/yellow"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/TextDesiredSkills"
+            android:layout_width="336dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputbox"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:hint="@null"
+            android:autofillHints="@string/DD"
+            android:textColor="@color/black"
+            />
+
         <Button
             android:id="@+id/postButton"
             android:layout_width="match_parent"
