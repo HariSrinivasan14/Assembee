@@ -1,15 +1,16 @@
 package com.example.assembee
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageButton
-
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mikhaellopez.circularimageview.CircularImageView
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_explore -> {
-                val exploreFragment = explore_dummy.newInstance()
+                val exploreFragment = ExploreFragment.newInstance()
                 setCurrentFragment(exploreFragment)
                 return@OnNavigationItemSelectedListener true
             }
@@ -61,10 +62,49 @@ class MainActivity : AppCompatActivity() {
         }
 
         // log-in button listener
-        val profile_button: ImageButton = findViewById(R.id.profile);
+        val profile_button: CircularImageView = findViewById(R.id.profile);
         profile_button.setOnClickListener {
             val signin_intent = Intent(this, Signin::class.java)
             startActivity(signin_intent)
+        }
+
+        // display logged in user's profile
+
+        // get saved userId
+        val sh = getSharedPreferences(
+            "sharedPref",
+            Context.MODE_PRIVATE
+        )
+
+        val avatarUrl = sh.getString("avatarURL", "")
+
+        if (avatarUrl != "") {
+            Glide.with(this)
+                .load(avatarUrl)
+                .into(profile_button)
+
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // display logged in user's profile
+        val profile_button: CircularImageView = findViewById(R.id.profile);
+
+        // get saved userId
+        val sh = getSharedPreferences(
+            "sharedPref",
+            Context.MODE_PRIVATE
+        )
+
+        val avatarUrl = sh.getString("avatarURL", "")
+
+        if (avatarUrl != "") {
+            Glide.with(this)
+                .load(avatarUrl)
+                .into(profile_button)
+
         }
 
     }

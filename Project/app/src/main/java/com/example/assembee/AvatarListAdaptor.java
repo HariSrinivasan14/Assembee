@@ -3,6 +3,8 @@ package com.example.assembee;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +14,30 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.dialog.MaterialDialogs;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.ViewHolder> {
     private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> userIds = new ArrayList<>();
     private Context context;
 
-    public AvatarListAdaptor(ArrayList<String> names, Context context) {
+    public AvatarListAdaptor(ArrayList<String> names, ArrayList<String> userIds, Context context) {
         this.names = names;
+        this.userIds = userIds;
         this.context = context;
     }
 
@@ -43,8 +58,6 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
         return names.size();
     }
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
 
@@ -62,7 +75,39 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
 
                                 .setPositiveButton("Join", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        name.setText("Waiting for response");
+                                        SharedPreferences sharedPreferences
+                                                = context.getSharedPreferences("sharedPref",
+                                                MODE_PRIVATE);
+
+                                        String url = "https://assembee.dissi.dev/notifications";
+                                        JSONObject post_body = new JSONObject();
+                                        try {
+                                            post_body = post_body.put("from", sharedPreferences.getString("userId", null))
+                                                    .put("to", "")
+                                                    .put("project", "");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        RequestQueue requstQueue = Volley.newRequestQueue(context);
+
+                                        JsonObjectRequest body = new JsonObjectRequest(Request.Method.POST, url, post_body,
+                                                new Response.Listener<JSONObject>() {
+                                                    @Override
+                                                    public void onResponse(JSONObject response) {
+                                                        // Storing userId into SharedPreferences
+                                                        Log.w("join resp", response.toString());
+                                                        name.setText("Waiting for response");
+                                                    }
+                                                },
+                                                new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+                                                        Log.w("volley", "error");
+                                                    }
+                                                }
+                                        ) {
+                                        };
+                                        requstQueue.add(body);
                                     }
                                 })
 
@@ -74,7 +119,8 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
                         Intent intent = new Intent(itemView.getContext(), user_profile.class);
                         // this bool indicates not to display logout & logged-in user username etc.
                         intent.putExtra("is user", false);
-                        intent.putExtra("name", names.get(getAdapterPosition()));
+                        intent.putExtra("userId", userIds.get(getAdapterPosition()));
+//                        intent.putExtra("name", names.get(getAdapterPosition()));
 
                         context.startActivity(intent);
 
