@@ -8,7 +8,6 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 
 open class MyVolleyRequest {
@@ -64,28 +63,28 @@ open class MyVolleyRequest {
     }
 
     fun getRequest(url:String){
-        val getRequest = JsonObjectRequest(Request.Method.GET, url, null, Response.Listener { response ->
-            iVolley!!.onResponse(response.toString())
-        }, Response.ErrorListener{ error ->
-            iVolley!!.onResponse(error.message!!)
+        val getRequest = JsonObjectRequest(Request.Method.GET, url, null, { response ->
+            iVolley!!.onResponse(response)
+        }, { error ->
+            iVolley!!.onResponse(null)
         })
         addToRequestQueue(getRequest)
     }
-    fun postRequest(url: String){
-        val postRequest = object: StringRequest(Request.Method.POST, url, Response.Listener { response ->
-            iVolley!!.onResponse(response.toString())
-        }, Response.ErrorListener{ error ->
-            iVolley!!.onResponse(error.message!!)
-        })
-        {
-            override fun getParams(): MutableMap<String, String> {
-                val params = HashMap<String,String>()
-
-                return super.getParams()
-            }
-        }
-        addToRequestQueue(postRequest)
-    }
+//    fun postRequest(url: String){
+//        val postRequest = object: StringRequest(Request.Method.POST, url, Response.Listener { response ->
+//            iVolley!!.onResponse(response.toString())
+//        }, Response.ErrorListener{ error ->
+//            iVolley!!.onResponse(error.message!!)
+//        })
+//        {
+//            override fun getParams(): MutableMap<String, String> {
+//                val params = HashMap<String,String>()
+//
+//                return super.getParams()
+//            }
+//        }
+//        addToRequestQueue(postRequest)
+//    }
     companion object{
         private var mInstance : MyVolleyRequest? = null
         @Synchronized

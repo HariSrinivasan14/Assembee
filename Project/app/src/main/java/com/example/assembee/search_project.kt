@@ -14,19 +14,42 @@ class search_project : AppCompatActivity(), VolleyCallBack{
     private var title_list: ArrayList<String> = ArrayList()
     private var owners: ArrayList<String> = ArrayList()
     private var descriptions: ArrayList<String> = ArrayList()
+//    private lateinit var layout_manager: LinearLayoutManager;
+//    private lateinit var recyclerView: RecyclerView;
+//    private lateinit var search_list_adaptor: SearchListAdaptor
 //    //private var results: JSONObject = JSONObject("")
-    override fun onResponse(result: String) {
-        Log.d("info", "onResponse: "+result)
-//        title_list.add(result)
+//    override fun onResponse(result: String) {
+//        Log.d("info", "onResponse: "+result)
+////        createPosts(results: JSONObject?)
+////        title_list.add(result)
+//    }
+    override fun onResponse(result: JSONObject?) {
+//        Log.d("info", "onResponse: "+result)
+        createPosts(result)
+        var layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        var recyclerView = findViewById<RecyclerView>(R.id.search_project_recycler_view)
+        Log.d("info", "recycle: "+recyclerView)
+        var search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, this);
+        recyclerView?.layoutManager = layout_manager
+        search_list_adaptor.notifyDataSetChanged()
+        layout_manager.apply{
+            recyclerView?.adapter = search_list_adaptor
+        }
+
+        Log.d("info", "onResponse: "+title_list)
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_search_project)
+
         val projectName = intent.getStringExtra("ProjectName")
         Log.d("info", "project name: "+projectName)
         val url = "https://assembee.dissi.dev/search/"+projectName
+
         MyVolleyRequest.getInstance(this@search_project, this@search_project)
                 .getRequest(url)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_project)
+
 
 //        title_list.add("test")
 //        owners.add("t est")
@@ -37,12 +60,7 @@ class search_project : AppCompatActivity(), VolleyCallBack{
 //        title_list.add("test")
 //        owners.add("t est")
 //        descriptions.add("TESTSTESTSETEST")
-        val layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val recyclerView = findViewById<RecyclerView>(R.id.search_project_recycler_view)
-        recyclerView?.layoutManager = layout_manager
-        val a = title_list
-        val search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, this);
-        recyclerView?.adapter = search_list_adaptor
+
 
 
 //        val projectName = intent.getStringExtra("ProjectName")

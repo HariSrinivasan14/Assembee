@@ -33,7 +33,9 @@ class explore_dummy : Fragment() {
 
                 val projectName: String? =  query
                 val intent = Intent(activity, search_project :: class.java)
+
                 intent.putExtra("ProjectName", projectName)
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent)
                 return true
             }
