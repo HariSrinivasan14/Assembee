@@ -135,7 +135,7 @@ class Add_Post : AppCompatActivity() {
                     Request.Method.POST, url, new_post,
                     Response.Listener<JSONObject?> {
                         fun onResponse(response: JSONObject) {
-                            onBackPressed()
+
                             Log.w("resp", response.toString())
 
                         }
@@ -147,6 +147,7 @@ class Add_Post : AppCompatActivity() {
                     }
                 ) {}
             requstQueue.add(body)
+            onBackPressed()
 
         }
     }
