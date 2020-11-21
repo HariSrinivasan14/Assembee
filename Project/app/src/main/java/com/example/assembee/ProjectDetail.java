@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +77,7 @@ public class ProjectDetail extends AppCompatActivity {
         setEditListener(findViewById(R.id.editDesc), "description", R.id.ProjectDescription);
         setEditListener(findViewById(R.id.editskill), "skills", R.id.DesiredSkills);
         setEditListener(findViewById(R.id.editAvai), "availability", R.id.availbility);
+        setStatusEditListener(findViewById(R.id.editState), "state", R.id.state);
 
         // for tags
         setEditTagsListener(findViewById(R.id.editCatagroies), "categories", R.id.projectCategory);
@@ -149,7 +151,7 @@ public class ProjectDetail extends AppCompatActivity {
         });
 
 
-            // fetch projects from api
+        // fetch projects from api
         String url = "https://assembee.dissi.dev/project/" + projectId;
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -376,6 +378,118 @@ public class ProjectDetail extends AppCompatActivity {
 
                 builder.show();
 
+            }
+        });
+    }
+
+    private void setStatusEditListener(ImageButton button, String field, int id) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://assembee.dissi.dev/project/" + projectId;
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetail.this);
+                TextView currentState = findViewById(R.id.state);
+                builder.setTitle("Edit " + field + ": " + currentState.getText().toString());
+
+                String[] states = {"ongoing", "finished", "delete project"};
+                builder.setItems(states, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0: {
+                                JsonObjectRequest req = null;
+                                try {
+                                    req = null;
+                                    req = new JsonObjectRequest(Request.Method.PATCH,
+                                            url,
+                                            new JSONObject().put(field, "ongoing"),
+                                            new Response.Listener<JSONObject>() {
+                                                @Override
+                                                public void onResponse(JSONObject response) {
+                                                    // update field upon resonse
+                                                    TextView current = findViewById(id);
+                                                    try {
+                                                        current.setText(response.getString(field));
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            VolleyLog.d("Error", "Error: " + error.getMessage());
+                                            Toast.makeText(ProjectDetail.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                RequestQueue requstQueue = Volley.newRequestQueue(ProjectDetail.this);
+                                requstQueue.add(req);
+
+                            }
+                            case 1: {
+                                JsonObjectRequest req = null;
+                                try {
+                                    req = null;
+                                    req = new JsonObjectRequest(Request.Method.PATCH,
+                                            url,
+                                            new JSONObject().put(field, "finished"),
+                                            new Response.Listener<JSONObject>() {
+                                                @Override
+                                                public void onResponse(JSONObject response) {
+                                                    // update field upon resonse
+                                                    TextView current = findViewById(id);
+                                                    try {
+                                                        current.setText(response.getString(field));
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            VolleyLog.d("Error", "Error: " + error.getMessage());
+                                            Toast.makeText(ProjectDetail.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                RequestQueue requstQueue = Volley.newRequestQueue(ProjectDetail.this);
+                                requstQueue.add(req);
+                            }
+                            case 2: {
+                                JsonObjectRequest req = null;
+                                req = null;
+                                req = new JsonObjectRequest(Request.Method.DELETE,
+                                        url,
+                                        null,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+                                                Log.d("deleted", response.toString());
+                                                Toast.makeText(ProjectDetail.this, "Project deleted", Toast.LENGTH_SHORT).show();
+                                                onBackPressed();
+                                            }
+                                        }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        VolleyLog.d("Error", "Error: " + error.getMessage());
+                                        Toast.makeText(ProjectDetail.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                                RequestQueue requstQueue = Volley.newRequestQueue(ProjectDetail.this);
+                                requstQueue.add(req);
+                            }
+                        }
+                    }
+                });
+
+                builder.show();
             }
         });
     }
