@@ -76,7 +76,17 @@ class DashboardFragment : Fragment() {
                     url,
                     null,
                     Response.Listener { response ->
-                        Log.d("Response", response.toString())
+                        // clear all lists
+                        title_list.clear()
+                        owners.clear()
+                        descriptions.clear()
+                        projectIds.clear()
+
+                        pending_request_title.clear()
+                        pending_request_owners.clear()
+                        pending_request_descriptions.clear()
+                        pending_request_ids.clear()
+
                         var owner_projects: JSONArray = response.getJSONArray("owner")
                         var cont_projects: JSONArray = response.getJSONArray("contributor")
                         for (i in 0 until owner_projects.length()) {
@@ -86,8 +96,6 @@ class DashboardFragment : Fragment() {
                             descriptions.add(project.getString("description"))
                             projectIds.add(project.getString("id"))
                         }
-
-                        Log.d("length of lists", ""+title_list.size);
 
                         for (i in 0 until cont_projects.length()) {
                             var project: JSONObject = owner_projects.getJSONObject(i)
@@ -125,7 +133,6 @@ class DashboardFragment : Fragment() {
         pending_request_descriptions.clear()
         pending_request_ids.clear()
 
-
         val sp: SharedPreferences? = activity?.getSharedPreferences(
             "sharedPref",
             Context.MODE_PRIVATE
@@ -143,12 +150,19 @@ class DashboardFragment : Fragment() {
                     url,
                     null,
                     Response.Listener { response ->
-                        Log.d("Response", response.toString())
-                        Log.d("responseID", response.getString("user_id"))
+                        // clear all lists
+                        title_list.clear()
+                        owners.clear()
+                        descriptions.clear()
+                        projectIds.clear()
+
+                        pending_request_title.clear()
+                        pending_request_owners.clear()
+                        pending_request_descriptions.clear()
+                        pending_request_ids.clear()
+
                         var owner_projects: JSONArray = response.getJSONArray("owner")
-                        Log.w("owner_p", owner_projects.toString())
                         var cont_projects: JSONArray = response.getJSONArray("contributor")
-                        Log.w("cont_p", cont_projects.toString())
 
                         for (i in 0 until owner_projects.length()) {
                             var project: JSONObject = owner_projects.getJSONObject(i)
@@ -184,6 +198,19 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
+
+        // clear all lists
+        title_list.clear()
+        owners.clear()
+        descriptions.clear()
+        projectIds.clear()
+
+        pending_request_title.clear()
+        pending_request_owners.clear()
+        pending_request_descriptions.clear()
+        pending_request_ids.clear()
+
+
         val sp: SharedPreferences? = activity?.getSharedPreferences(
             "sharedPref",
             Context.MODE_PRIVATE

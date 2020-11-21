@@ -85,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="@string/Android_App" />
+                    android:text="Android" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_3"
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="@string/IOS_app" />
+                    android:text="iOS" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_4"

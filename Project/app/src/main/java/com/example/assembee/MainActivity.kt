@@ -82,7 +82,6 @@ class MainActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(avatarUrl)
                 .into(profile_button)
-
         }
 
     }
