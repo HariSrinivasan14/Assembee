@@ -42,7 +42,6 @@ public class ProjectDetail extends AppCompatActivity {
     AvatarListAdaptor avatarListAdaptor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("IN DETAIL", "");
         super.onCreate(savedInstanceState);
         contributors = new ArrayList<>();
         setContentView(R.layout.activity_project_detail);

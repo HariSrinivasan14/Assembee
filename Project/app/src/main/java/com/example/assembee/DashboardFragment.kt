@@ -37,6 +37,13 @@ class DashboardFragment : Fragment() {
     private lateinit var projectRecylerView: RecyclerView
     private lateinit var project_list_adaptor: ProjectListAdaptor
 
+    private lateinit var pending_request_title: ArrayList<String>
+    private lateinit var pending_request_ids: ArrayList<String>
+    private lateinit var pending_request_owners: ArrayList<String>
+    private lateinit var pending_request_descriptions: ArrayList<String>
+    private lateinit var pending_requestRecyclerView: RecyclerView
+    private lateinit var pending_request_adaptor: ProjectListAdaptor
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +52,12 @@ class DashboardFragment : Fragment() {
         owners = ArrayList()
         descriptions = ArrayList()
         projectIds = ArrayList()
+
+        pending_request_title = ArrayList()
+        pending_request_owners = ArrayList()
+        pending_request_descriptions = ArrayList()
+        pending_request_ids = ArrayList()
+
         val sp: SharedPreferences? = activity?.getSharedPreferences(
             "sharedPref",
             Context.MODE_PRIVATE
@@ -77,11 +90,16 @@ class DashboardFragment : Fragment() {
                         Log.d("length of lists", ""+title_list.size);
 
                         for (i in 0 until cont_projects.length()) {
-                            // TODO
+                            var project: JSONObject = owner_projects.getJSONObject(i)
+                            pending_request_title.add(project.getString("name"))
+                            pending_request_owners.add(project.getJSONObject("owner").getString("name"))
+                            pending_request_descriptions.add(project.getString("description"))
+                            pending_request_ids.add(project.getString("id"))
+
                         }
 
                         project_list_adaptor.notifyDataSetChanged()
-                        Log.d("length of adaptor", ""+project_list_adaptor.itemCount)
+                        pending_request_adaptor.notifyDataSetChanged()
                         view?.findViewById<TextView>(R.id.notLoggedInLabel)?.visibility = View.GONE;
 
                     },
@@ -102,8 +120,11 @@ class DashboardFragment : Fragment() {
         descriptions.clear()
         projectIds.clear()
 
-        // fetch the projects of the user & re-render project list
-        Log.w("item count", ""+project_list_adaptor.itemCount)
+        pending_request_title.clear()
+        pending_request_owners.clear()
+        pending_request_descriptions.clear()
+        pending_request_ids.clear()
+
 
         val sp: SharedPreferences? = activity?.getSharedPreferences(
             "sharedPref",
@@ -137,12 +158,17 @@ class DashboardFragment : Fragment() {
                             projectIds.add(project.getString("id"))
                         }
                         for (i in 0 until cont_projects.length()) {
-                            // TODO
+                            var project: JSONObject = owner_projects.getJSONObject(i)
+                            pending_request_title.add(project.getString("name"))
+                            pending_request_owners.add(project.getJSONObject("owner").getString("name"))
+                            pending_request_descriptions.add(project.getString("description"))
+                            pending_request_ids.add(project.getString("id"))
                         }
 
-                        Log.d("length of lists", ""+title_list.size);
                         view?.findViewById<TextView>(R.id.notLoggedInLabel)?.visibility = View.GONE;
                         project_list_adaptor.notifyDataSetChanged()
+                        pending_request_adaptor.notifyDataSetChanged()
+
                     },
                     Response.ErrorListener { error ->
                         Log.w("dash error", error)
@@ -157,21 +183,29 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         val sp: SharedPreferences? = activity?.getSharedPreferences(
             "sharedPref",
             Context.MODE_PRIVATE
         )
+
         var res = inflater.inflate(R.layout.fragment_dashboard, container, false)
         if(sp != null) {
             view?.findViewById<TextView>(R.id.notLoggedInLabel)?.visibility = View.GONE;
         }
 
-        // set up adaptor
+        // set up adaptors
         val layout_manager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         projectRecylerView = res?.findViewById(R.id.dash_project_recycler_view)!!
         projectRecylerView.layoutManager = layout_manager
         project_list_adaptor = ProjectListAdaptor(title_list, owners, descriptions, projectIds, context)
         projectRecylerView.adapter = project_list_adaptor
+
+        val request_layout_manager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        pending_requestRecyclerView = res?.findViewById(R.id.pendingRecyclerView)!!
+        pending_requestRecyclerView.layoutManager = request_layout_manager
+        pending_request_adaptor = ProjectListAdaptor(pending_request_title, pending_request_owners, pending_request_descriptions, pending_request_ids, context)
+        pending_requestRecyclerView.adapter = pending_request_adaptor
 
         return res
     }
