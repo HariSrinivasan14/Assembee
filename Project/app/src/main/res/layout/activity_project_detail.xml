@@ -158,6 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="false"
+                    android:visibility="gone"
                     android:text="Web"/>
 
                 <com.google.android.material.chip.Chip
@@ -166,6 +167,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:clickable="false"
+                    android:visibility="gone"
                     android:text="Android"/>
 
                 <com.google.android.material.chip.Chip
@@ -174,6 +176,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:clickable="false"
+                    android:visibility="gone"
                     android:text="iOS"/>
 
                 <com.google.android.material.chip.Chip
@@ -182,6 +185,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:clickable="false"
+                    android:visibility="gone"
                     android:text="Machine Learning"/>
 
                 <com.google.android.material.chip.Chip
@@ -190,6 +194,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:clickable="false"
+                    android:visibility="gone"
                     android:text="AI"/>
 
                 <com.google.android.material.chip.Chip
@@ -198,6 +203,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:clickable="false"
+                    android:visibility="gone"
                     android:text="Other"/>
 
 
@@ -341,6 +347,16 @@
 
 
     </ScrollView>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/join_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        android:contentDescription="Request to join"
+        android:text="Request to join"
+        android:backgroundTint="@color/yellow"/>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -67,54 +67,6 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // count me in button
-                    if (getAdapterPosition() == names.size() - 1) {
-                        new MaterialAlertDialogBuilder(context)
-                                .setTitle("Request to join this project?")
-                                .setMessage("The project owner will review your request.")
-
-                                .setPositiveButton("Join", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        SharedPreferences sharedPreferences
-                                                = context.getSharedPreferences("sharedPref",
-                                                MODE_PRIVATE);
-
-                                        String url = "https://assembee.dissi.dev/notifications";
-                                        JSONObject post_body = new JSONObject();
-                                        try {
-                                            post_body = post_body.put("from", sharedPreferences.getString("userId", null))
-                                                    .put("to", "")
-                                                    .put("project", "");
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        RequestQueue requstQueue = Volley.newRequestQueue(context);
-
-                                        JsonObjectRequest body = new JsonObjectRequest(Request.Method.POST, url, post_body,
-                                                new Response.Listener<JSONObject>() {
-                                                    @Override
-                                                    public void onResponse(JSONObject response) {
-                                                        // Storing userId into SharedPreferences
-                                                        Log.w("join resp", response.toString());
-                                                        name.setText("Waiting for response");
-                                                    }
-                                                },
-                                                new Response.ErrorListener() {
-                                                    @Override
-                                                    public void onErrorResponse(VolleyError error) {
-                                                        Log.w("volley", "error");
-                                                    }
-                                                }
-                                        ) {
-                                        };
-                                        requstQueue.add(body);
-                                    }
-                                })
-
-                                // dismiss the dialog and do nothing
-                                .setNegativeButton(android.R.string.no, null)
-                                .show();
-                    } else {
                         // open up a profile activity
                         Intent intent = new Intent(itemView.getContext(), user_profile.class);
                         // this bool indicates not to display logout & logged-in user username etc.
@@ -124,7 +76,6 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
 
                         context.startActivity(intent);
 
-                    }
                 }
             });
         }

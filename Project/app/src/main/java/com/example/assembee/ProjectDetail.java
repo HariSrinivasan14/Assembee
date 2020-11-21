@@ -34,6 +34,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONArray;
@@ -47,6 +50,7 @@ public class ProjectDetail extends AppCompatActivity {
     ArrayList<String> userIds;
     AvatarListAdaptor avatarListAdaptor;
     String projectId;
+    String ownerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +77,9 @@ public class ProjectDetail extends AppCompatActivity {
         setEditListener(findViewById(R.id.editskill), "skills", R.id.DesiredSkills);
         setEditListener(findViewById(R.id.editAvai), "availability", R.id.availbility);
 
+        // for tags
+        setEditTagsListener(findViewById(R.id.editCatagroies), "categories", R.id.projectCategory);
+
         // get projectId intent
         Intent intent = getIntent();
         projectId = intent.getStringExtra("projectId");
@@ -84,7 +91,65 @@ public class ProjectDetail extends AppCompatActivity {
         avatarListAdaptor = new AvatarListAdaptor(contributors, userIds, this);
         avatar_recycler.setAdapter(avatarListAdaptor);
 
-        // fetch projects from api
+        // setup the fab
+        findViewById(R.id.join_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialAlertDialogBuilder(ProjectDetail.this)
+                        .setTitle("Request to join this project?")
+                        .setMessage("The project owner will review your request.")
+
+                        .setPositiveButton("Join", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPreferences
+                                        = ProjectDetail.this.getSharedPreferences("sharedPref",
+                                        MODE_PRIVATE);
+
+                                String url = "https://assembee.dissi.dev/notifications";
+                                JSONObject post_body = new JSONObject();
+                                Log.d("post body", ""+userId+" "+ownerId +  " "+ projectId);
+                                try {
+                                    post_body = post_body.put("from", sharedPreferences.getString("userId", null))
+                                            .put("to", ownerId)
+                                            .put("project", projectId);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                RequestQueue requstQueue = Volley.newRequestQueue(ProjectDetail.this);
+
+                                JsonObjectRequest body = new JsonObjectRequest(Request.Method.POST, url, post_body,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+                                                // Storing userId into SharedPreferences
+                                                ProjectDetail.this.contributors.add("Waiting for response");
+                                                ProjectDetail.this.avatarListAdaptor.notifyDataSetChanged();
+
+                                                // hide the join button
+                                                findViewById(R.id.join_button).setVisibility(View.GONE);
+                                                Toast.makeText(ProjectDetail.this, "The project owner will contact you if you are a good fit", Toast.LENGTH_LONG).show();
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                Log.w("volley", "error");
+                                            }
+                                        }
+                                ) {
+                                };
+                                requstQueue.add(body);
+                            }
+                        })
+
+                        // dismiss the dialog and do nothing
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+            }
+        });
+
+
+            // fetch projects from api
         String url = "https://assembee.dissi.dev/project/" + projectId;
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -102,9 +167,11 @@ public class ProjectDetail extends AppCompatActivity {
                         TextView skills = findViewById(R.id.DesiredSkills);
                         TextView avail = findViewById(R.id.availbility);
                         TextView state = findViewById(R.id.state);
+                        ChipGroup tags = findViewById(R.id.project_tags);
 
                         try {
                             // hide edit buttons if the use is not the owner
+                            ownerId = response.getJSONObject("owner").getString("id");
                             if (!response.getJSONObject("owner").getString("id").equals(userId)) {
                                 findViewById(R.id.editTitle).setVisibility(View.GONE);
                                 findViewById(R.id.editState).setVisibility(View.GONE);
@@ -119,6 +186,29 @@ public class ProjectDetail extends AppCompatActivity {
                             skills.setText(response.getString("skills"));
                             avail.setText(response.getString("availability"));
                             state.setText(response.getString("status"));
+
+                            // tags
+                            JSONArray t = response.getJSONArray("categories");
+                            for (int i = 0; i < t.length(); ++i) {
+                                if (t.get(i).equals("Web")) {
+                                    findViewById(R.id.web_tag).setVisibility(View.VISIBLE);
+                                }
+                                else if (t.get(i).equals("Android")) {
+                                    findViewById(R.id.android_tag).setVisibility(View.VISIBLE);
+                                }
+                                else if (t.get(i).equals("iOS")) {
+                                    findViewById(R.id.ios_tag).setVisibility(View.VISIBLE);
+                                }
+                                else if (t.get(i).equals("Machine Learning")) {
+                                    findViewById(R.id.ml_tag).setVisibility(View.VISIBLE);
+                                }
+                                else if (t.get(i).equals("AI")) {
+                                    findViewById(R.id.ai_tag).setVisibility(View.VISIBLE);
+                                }
+                                else {
+                                    findViewById(R.id.other_tag).setVisibility(View.VISIBLE);
+                                }
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -130,7 +220,166 @@ public class ProjectDetail extends AppCompatActivity {
             }
         });
         queue.add(req);
+
+        this.contributors.add("elon");
     }
+
+    private void setEditTagsListener(ImageButton button, String field, int groupId) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetail.this);
+                builder.setTitle("Edit " + field);
+
+                ChipGroup group = new ChipGroup(ProjectDetail.this);
+                Chip web = new Chip(ProjectDetail.this);
+                web.setCheckable(true);
+                web.setChecked(true);
+                web.setText("Web");
+                if (findViewById(R.id.web_tag).getVisibility() != View.VISIBLE) {
+                    web.setChecked(false);
+                }
+                group.addView(web, 0);
+
+                Chip android = new Chip(ProjectDetail.this);
+                android.setText("Android");
+                android.setCheckable(true);
+                android.setChecked(true);
+                if (findViewById(R.id.android_tag).getVisibility() != View.VISIBLE) {
+                    android.setChecked(false);
+                }
+                group.addView(android, 1);
+
+                Chip ios = new Chip(ProjectDetail.this);
+                ios.setText("iOS");
+                ios.setCheckable(true);
+                ios.setChecked(true);
+                if (findViewById(R.id.ios_tag).getVisibility() != View.VISIBLE) {
+                    ios.setChecked(false);
+                }
+
+                group.addView(ios, 2);
+
+                Chip ml = new Chip(ProjectDetail.this);
+                ml.setText("Machine Learning");
+                ml.setCheckable(true);
+                ml.setChecked(true);
+                if (findViewById(R.id.ml_tag).getVisibility() != View.VISIBLE) {
+                    ml.setChecked(false);
+                }
+                group.addView(ml, 3);
+
+                Chip ai = new Chip(ProjectDetail.this);
+                ai.setText("AI");
+                ai.setCheckable(true);
+                ai.setChecked(true);
+                if (findViewById(R.id.ai_tag).getVisibility() != View.VISIBLE) {
+                    ai.setChecked(false);
+                }
+                group.addView(ai, 4);
+
+                Chip other = new Chip(ProjectDetail.this);
+                other.setCheckable(true);
+                other.setChecked(true);
+                other.setText("Other");
+                if (findViewById(R.id.other_tag).getVisibility() != View.VISIBLE) {
+                    other.setChecked(false);
+                }
+                group.addView(other, 5);
+
+                builder.setView(group);
+
+                builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        JSONArray patch_body = new JSONArray();
+                        if (web.isChecked()) {
+                            patch_body.put("Web");
+                        }
+                        if (android.isChecked()) {
+                            patch_body.put("Android");
+                        }
+                        if (ios.isChecked()) {
+                            patch_body.put("iOS");
+                        }
+                        if (ml.isChecked()) {
+                            patch_body.put("Machine Learning");
+                        }
+                        if (ai.isChecked()) {
+                            patch_body.put("AI");
+                        }
+                        if (other.isChecked()) {
+                            patch_body.put("Other");
+                        }
+
+                        String url = "https://assembee.dissi.dev/project/" + projectId;
+                        JsonObjectRequest req = null;
+                        try {
+                            req = new JsonObjectRequest(Request.Method.PATCH,
+                                    url,
+                                    new JSONObject().put("categories", patch_body),
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Log.d("update BODY", response.toString());
+                                            // tags
+                                            JSONArray t = null;
+
+                                            try {
+                                                t = response.getJSONArray("categories");
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            for (int i = 0; i < t.length(); ++i) {
+                                                try {
+                                                    if (t.get(i).equals("Web")) {
+                                                        findViewById(R.id.web_tag).setVisibility(View.VISIBLE);
+                                                    } else if (t.get(i).equals("Android")) {
+                                                        findViewById(R.id.android_tag).setVisibility(View.VISIBLE);
+                                                    } else if (t.get(i).equals("iOS")) {
+                                                        findViewById(R.id.ios_tag).setVisibility(View.VISIBLE);
+                                                    } else if (t.get(i).equals("Machine Learning")) {
+                                                        findViewById(R.id.ml_tag).setVisibility(View.VISIBLE);
+                                                    } else if (t.get(i).equals("AI")) {
+                                                        findViewById(R.id.ai_tag).setVisibility(View.VISIBLE);
+                                                    } else {
+                                                        findViewById(R.id.other_tag).setVisibility(View.VISIBLE);
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    VolleyLog.d("Error", "Error: " + error.getMessage());
+                                    Toast.makeText(ProjectDetail.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        RequestQueue requstQueue = Volley.newRequestQueue(ProjectDetail.this);
+                        requstQueue.add(req);
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+
+            }
+        });
+    }
+
     private void setEditListener(ImageButton button, String field, int id) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override

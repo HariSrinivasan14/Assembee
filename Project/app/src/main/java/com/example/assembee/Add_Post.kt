@@ -43,7 +43,7 @@ class Add_Post : AppCompatActivity() {
         val button_cancel: ImageButton = findViewById(R.id.cancel_button)
         button_cancel.setOnClickListener {
             val alertDialog = AlertDialog.Builder(this).create()
-            alertDialog.setTitle("Delete Post")
+            alertDialog.setTitle("You are about to go back")
             alertDialog.setMessage("Are you sure you want to discard the project draft?")
 
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes"
@@ -163,10 +163,10 @@ class Add_Post : AppCompatActivity() {
             checkedChips.add("Web")
         }
         if(chip2.isChecked){
-            checkedChips.add("Android App")
+            checkedChips.add("Android")
         }
         if(chip3.isChecked){
-            checkedChips.add("IOS app")
+            checkedChips.add("iOS")
         }
         if(chip4.isChecked){
             checkedChips.add("Machine Learning")
