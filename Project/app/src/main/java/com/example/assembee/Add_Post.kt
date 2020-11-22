@@ -155,7 +155,6 @@ class Add_Post : AppCompatActivity() {
         val chip1: Chip = findViewById(R.id.chip_1)
         val chip2: Chip = findViewById(R.id.chip_2)
         val chip3: Chip = findViewById(R.id.chip_3)
-        val chip4: Chip = findViewById(R.id.chip_4)
         val chip5: Chip = findViewById(R.id.chip_5)
         val chip6: Chip = findViewById(R.id.chip_6)
         var checkedChips= mutableListOf<String>()
@@ -167,9 +166,6 @@ class Add_Post : AppCompatActivity() {
         }
         if(chip3.isChecked){
             checkedChips.add("iOS")
-        }
-        if(chip4.isChecked){
-            checkedChips.add("Machine Learning")
         }
         if(chip5.isChecked){
             checkedChips.add("AI")
