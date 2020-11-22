@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -19,43 +18,50 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp">
 
-            <EditText
-                android:id="@+id/search"
-                android:layout_width="324dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:autofillHints="@string/Project_Name"
-                android:background="@drawable/inputbox"
-                android:ems="10"
-                android:hint="@string/search"
 
-                android:inputType="text"
-                android:paddingStart="10dp"
-                android:paddingLeft="15dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/black" />
+            <SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"/>
 
             <TextView
-                android:id="@+id/Categories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:inputType="text"
                 android:text="@string/Categories"
-                android:textColor="@color/black"
+                android:textColor="@color/yellow"
                 android:textSize="25sp"
                 tools:ignore="TextViewEdits" />
 
             <RelativeLayout
+                android:id="@+id/IOS_category"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="92dp">
+
+                <ImageButton
+                    android:id="@+id/IOS"
+                    android:layout_width="401dp"
+                    android:layout_height="89dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:background="?android:selectableItemBackground" />
+
+                <!--                <selector-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent">-->
+
+                <!--                    <item-->
+                <!--                        android:drawable="@color/my_bluish_color"-->
+                <!--                        android:state_pressed="true" />-->
+
+                <!--                    <item android:drawable="@android:color/transparent" />-->
+                <!--                </selector>-->
+
 
                 <TextView
                     android:id="@+id/ios"
@@ -68,23 +74,26 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="57dp"
                     android:text="@string/IOS_app"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
                 <ImageView
                     android:id="@+id/ios_image"
-                    android:layout_width="23dp"
-                    android:layout_height="12dp"
+                    android:layout_width="37dp"
+                    android:layout_height="22dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="47dp"
-                    android:layout_marginBottom="41dp"
-                    android:src="@drawable/ios" />
+                    android:layout_marginStart="19dp"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="42dp"
+                    app:tint="@color/gray"
+                    android:src="@drawable/ios"
+
+                    />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
@@ -96,25 +105,22 @@
                     android:layout_marginEnd="36dp"
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="3dp"
-                    android:src="@drawable/line" />
+                    android:src="@drawable/line"
+                    />
 
             </RelativeLayout>
 
             <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 
-                <ImageView
-                    android:id="@+id/imageButton3"
-                    android:layout_width="295dp"
-                    android:layout_height="11dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginRight="36dp"
-                    android:layout_marginBottom="3dp"
-                    android:src="@drawable/line" />
+
+                <ImageButton
+                    android:id="@+id/Android_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground" />
 
                 <TextView
                     android:id="@+id/android"
@@ -127,7 +133,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="70dp"
                     android:text="@string/Android_App"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
@@ -143,13 +149,33 @@
                     android:layout_marginLeft="22dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="39dp"
-                    android:src="@drawable/android" />
+                    android:src="@drawable/android"
+                    app:tint="@color/gray"/>
+
+                <ImageView
+                    android:id="@+id/imageButton3"
+                    android:layout_width="295dp"
+                    android:layout_height="13dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginRight="36dp"
+                    android:layout_marginBottom="3dp"
+                    android:src="@drawable/line" />
 
             </RelativeLayout>
 
             <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+
+                <ImageButton
+                    android:id="@+id/Web_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground" />
 
                 <ImageView
                     android:id="@+id/imageButton4"
@@ -174,7 +200,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="70dp"
                     android:text="@string/Web"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
@@ -190,12 +216,20 @@
                     android:layout_marginLeft="26dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="34dp"
-                    android:src="@drawable/web" />
+                    android:src="@drawable/web"
+                    app:tint="@color/gray"/>
 
             </RelativeLayout>
             <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+
+                <ImageButton
+                    android:id="@+id/ML_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground" />
 
                 <ImageView
 
@@ -219,8 +253,8 @@
                     android:layout_marginEnd="36dp"
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="70dp"
-                    android:text="@string/Machine_Learning"
-                    android:textColor="@color/black"
+                    android:text="@string/AI"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
@@ -236,12 +270,20 @@
                     android:layout_marginLeft="26dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="34dp"
-                    android:src="@drawable/machine" />
+                    android:src="@drawable/machine"
+                    app:tint="@color/gray"/>
 
             </RelativeLayout>
             <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+
+                <ImageButton
+                    android:id="@+id/Other_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground" />
 
                 <ImageView
 
@@ -266,7 +308,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginBottom="70dp"
                     android:text="@string/Other"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     tools:ignore="TextViewEdits" />
 
@@ -282,7 +324,8 @@
                     android:layout_marginLeft="23dp"
                     android:layout_marginTop="26dp"
                     android:layout_marginBottom="34dp"
-                    android:src="@drawable/other" />
+                    android:src="@drawable/other"
+                    app:tint="@color/gray"/>
 
             </RelativeLayout>
 
