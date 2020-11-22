@@ -28,7 +28,7 @@ class search_project : AppCompatActivity(), VolleyCallBack{
         Log.d("info", "onResponse: " + result)
         search_list_adaptor.notifyDataSetChanged()
         var text: TextView = findViewById(R.id.search_text)
-        text.setText(title_list[0])
+//        text.setText(title_list[0])
 
 //        Log.d("info", "onResponse: " + search_list_adaptor.gettitles().get(0))
 
