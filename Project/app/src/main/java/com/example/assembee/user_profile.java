@@ -123,20 +123,54 @@ public class user_profile extends AppCompatActivity {
             requstQueue.add(req);
 
         } else {
-            // hide the signout button
-            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
-            // display the name from intent
-            username = getIntent().getStringExtra("name");
-            TextView name = findViewById(R.id.profile_name);
-            name.setText(username);
-
-            // set the edit buttons invisible
+            // hide all edit buttons for non-user
             findViewById(R.id.editIntro).setVisibility(View.GONE);
             findViewById(R.id.editContacts).setVisibility(View.GONE);
-            findViewById(R.id.editAvail).setVisibility(View.GONE);
             findViewById(R.id.editSkills).setVisibility(View.GONE);
+            findViewById(R.id.editAvail).setVisibility(View.GONE);
+
+            // hide the signout button
+            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+            // display the user from intent
+            String userId = getIntent().getStringExtra("userId");
+            // fetch the user profile via api
+            String url = "https://assembee.dissi.dev/user/" + userId;
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("Response", response.toString());
+                    CircularImageView avatar = findViewById(R.id.user_avatar);
+                    TextView bio = findViewById(R.id.intro);
+                    TextView contacts = findViewById(R.id.contacts);
+                    TextView avail = findViewById(R.id.avail);
+                    TextView skills = findViewById(R.id.skills);
+
+                    TextView name = findViewById(R.id.profile_name);
+                    try {
+                        name.setText(response.getString("name"));
+                        Glide.with(user_profile.this)
+                                .load(response.getString("avatar"))
+                                .into(avatar);
+                        bio.setText(response.getString("bio"));
+                        contacts.setText(response.getString("contacts"));
+                        avail.setText(response.getString("availability"));
+                        skills.setText(response.getString("skills"));
 
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("Error", "Error: " + error.getMessage());
+                    Toast.makeText(user_profile.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            RequestQueue requstQueue = Volley.newRequestQueue(this);
+            requstQueue.add(req);
         }
     }
 

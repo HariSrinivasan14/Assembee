@@ -48,6 +48,7 @@ import java.util.ArrayList;
 
 public class ProjectDetail extends AppCompatActivity {
     ArrayList<String> contributors;
+    ArrayList<String> avatarUrls;
     ArrayList<String> userIds;
     AvatarListAdaptor avatarListAdaptor;
     String projectId;
@@ -63,6 +64,7 @@ public class ProjectDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         contributors = new ArrayList<>();
+        avatarUrls = new ArrayList<>();
         userIds = new ArrayList<>();
 
         // get saved userId
@@ -90,7 +92,7 @@ public class ProjectDetail extends AppCompatActivity {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView avatar_recycler = findViewById(R.id.avatar_recyler_view);
         avatar_recycler.setLayoutManager(manager);
-        avatarListAdaptor = new AvatarListAdaptor(contributors, userIds, this);
+        avatarListAdaptor = new AvatarListAdaptor(contributors, userIds, avatarUrls, this);
         avatar_recycler.setAdapter(avatarListAdaptor);
 
         // setup the fab
@@ -189,6 +191,17 @@ public class ProjectDetail extends AppCompatActivity {
                             avail.setText(response.getString("availability"));
                             state.setText(response.getString("status"));
 
+                            // contributors
+                            JSONArray c = response.getJSONArray("contributors");
+                            Log.d("contributors list", c.toString());
+                            for (int i = 0; i < c.length(); ++i) {
+                                JSONObject user = c.getJSONObject(i);
+                                userIds.add(user.getString("id"));
+                                avatarUrls.add(user.getString("avatar"));
+                                contributors.add(user.getString("name"));
+                            }
+                            avatarListAdaptor.notifyDataSetChanged();
+
                             // tags
                             JSONArray t = response.getJSONArray("categories");
                             for (int i = 0; i < t.length(); ++i) {
@@ -200,9 +213,6 @@ public class ProjectDetail extends AppCompatActivity {
                                 }
                                 else if (t.get(i).equals("iOS")) {
                                     findViewById(R.id.ios_tag).setVisibility(View.VISIBLE);
-                                }
-                                else if (t.get(i).equals("Machine Learning")) {
-                                    findViewById(R.id.ml_tag).setVisibility(View.VISIBLE);
                                 }
                                 else if (t.get(i).equals("AI")) {
                                     findViewById(R.id.ai_tag).setVisibility(View.VISIBLE);
@@ -222,8 +232,6 @@ public class ProjectDetail extends AppCompatActivity {
             }
         });
         queue.add(req);
-
-        this.contributors.add("elon");
     }
 
     private void setEditTagsListener(ImageButton button, String field, int groupId) {
@@ -262,15 +270,6 @@ public class ProjectDetail extends AppCompatActivity {
 
                 group.addView(ios, 2);
 
-                Chip ml = new Chip(ProjectDetail.this);
-                ml.setText("Machine Learning");
-                ml.setCheckable(true);
-                ml.setChecked(true);
-                if (findViewById(R.id.ml_tag).getVisibility() != View.VISIBLE) {
-                    ml.setChecked(false);
-                }
-                group.addView(ml, 3);
-
                 Chip ai = new Chip(ProjectDetail.this);
                 ai.setText("AI");
                 ai.setCheckable(true);
@@ -278,7 +277,7 @@ public class ProjectDetail extends AppCompatActivity {
                 if (findViewById(R.id.ai_tag).getVisibility() != View.VISIBLE) {
                     ai.setChecked(false);
                 }
-                group.addView(ai, 4);
+                group.addView(ai, 3);
 
                 Chip other = new Chip(ProjectDetail.this);
                 other.setCheckable(true);
@@ -287,7 +286,7 @@ public class ProjectDetail extends AppCompatActivity {
                 if (findViewById(R.id.other_tag).getVisibility() != View.VISIBLE) {
                     other.setChecked(false);
                 }
-                group.addView(other, 5);
+                group.addView(other, 4);
 
                 builder.setView(group);
 
@@ -304,9 +303,6 @@ public class ProjectDetail extends AppCompatActivity {
                         }
                         if (ios.isChecked()) {
                             patch_body.put("iOS");
-                        }
-                        if (ml.isChecked()) {
-                            patch_body.put("Machine Learning");
                         }
                         if (ai.isChecked()) {
                             patch_body.put("AI");
@@ -341,8 +337,6 @@ public class ProjectDetail extends AppCompatActivity {
                                                         findViewById(R.id.android_tag).setVisibility(View.VISIBLE);
                                                     } else if (t.get(i).equals("iOS")) {
                                                         findViewById(R.id.ios_tag).setVisibility(View.VISIBLE);
-                                                    } else if (t.get(i).equals("Machine Learning")) {
-                                                        findViewById(R.id.ml_tag).setVisibility(View.VISIBLE);
                                                     } else if (t.get(i).equals("AI")) {
                                                         findViewById(R.id.ai_tag).setVisibility(View.VISIBLE);
                                                     } else {

@@ -20,8 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.dialog.MaterialDialogs;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,12 +34,14 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.ViewHolder> {
     private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> avatars = new ArrayList<>();
     private ArrayList<String> userIds = new ArrayList<>();
     private Context context;
 
-    public AvatarListAdaptor(ArrayList<String> names, ArrayList<String> userIds, Context context) {
+    public AvatarListAdaptor(ArrayList<String> names, ArrayList<String> userIds, ArrayList<String> avatars, Context context) {
         this.names = names;
         this.userIds = userIds;
+        this.avatars = avatars;
         this.context = context;
     }
 
@@ -51,6 +55,9 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(names.get(position));
+        Glide.with(context)
+                .load(avatars.get(position))
+                .into(holder.avatar);
     }
 
     @Override
@@ -60,10 +67,12 @@ public class AvatarListAdaptor extends RecyclerView.Adapter<AvatarListAdaptor.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
+        CircularImageView avatar;
 
         public ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.contributor_name);
+            avatar = itemView.findViewById(R.id.avatar);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
