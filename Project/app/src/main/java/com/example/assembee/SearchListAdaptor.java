@@ -16,12 +16,14 @@ public class SearchListAdaptor extends  RecyclerView.Adapter<SearchListAdaptor.V
     private ArrayList<String> titles = new ArrayList<>();
     private ArrayList<String> owners = new ArrayList<>();
     private ArrayList<String> descriptions = new ArrayList<>();
+    private ArrayList<String> projectIds = new ArrayList<>();
     private Context context;
 
-    public SearchListAdaptor(ArrayList<String> titles, ArrayList<String> owners, ArrayList<String> descriptions, Context context) {
+    public SearchListAdaptor(ArrayList<String> titles, ArrayList<String> owners, ArrayList<String> descriptions, ArrayList<String> projectIds, Context context) {
         this.titles = titles;
         this.owners = owners;
         this.descriptions = descriptions;
+        this.projectIds = projectIds;
         this.context = context;
     }
 
@@ -64,7 +66,7 @@ public class SearchListAdaptor extends  RecyclerView.Adapter<SearchListAdaptor.V
                     intent.putExtra("title", titles.get(getAdapterPosition()));
                     intent.putExtra("owner", owners.get(getAdapterPosition()));
                     intent.putExtra("description", descriptions.get(getAdapterPosition()));
-
+                    intent.putExtra("projectId", projectIds.get(getAdapterPosition()));
                     context.startActivity(intent);
                 }
             });

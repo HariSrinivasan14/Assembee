@@ -35,8 +35,11 @@ class ExploreFragment : Fragment() {
                 val intent = Intent(activity, search_project :: class.java)
 
                 intent.putExtra("ProjectName", projectName)
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+
                 startActivity(intent)
+
                 return true
             }
             override fun onQueryTextChange(newText: String): Boolean {
@@ -52,7 +55,7 @@ class ExploreFragment : Fragment() {
         if (IOS_btn != null) {
             IOS_btn.setOnClickListener{
                 val intent = Intent(activity, search_project::class.java)
-                val category = "IOS"
+                val category = "iOS"
                 intent.putExtra("category", category)
                 startActivity(intent)
             }
@@ -76,7 +79,7 @@ class ExploreFragment : Fragment() {
         if (ML_btn != null) {
             ML_btn.setOnClickListener{
                 val intent = Intent(activity, search_project::class.java)
-                val category = "ML"
+                val category = "AI"
                 intent.putExtra("category", category)
                 startActivity(intent)
             }

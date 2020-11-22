@@ -2,136 +2,139 @@ package com.example.assembee
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.view.MenuItem
+import android.view.Window
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.awaitAll
 import org.json.JSONObject
-import kotlinx.coroutines.delay
+
 
 class search_project : AppCompatActivity(), VolleyCallBack{
-    private var title_list: ArrayList<String> = ArrayList()
-    private var owners: ArrayList<String> = ArrayList()
-    private var descriptions: ArrayList<String> = ArrayList()
-//    private lateinit var layout_manager: LinearLayoutManager;
-//    private lateinit var recyclerView: RecyclerView;
-//    private lateinit var search_list_adaptor: SearchListAdaptor
-//    //private var results: JSONObject = JSONObject("")
-//    override fun onResponse(result: String) {
-//        Log.d("info", "onResponse: "+result)
-////        createPosts(results: JSONObject?)
-////        title_list.add(result)
-//    }
-    override fun onResponse(result: JSONObject?) {
-//        Log.d("info", "onResponse: "+result)
-        createPosts(result)
-        var layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        var recyclerView = findViewById<RecyclerView>(R.id.search_project_recycler_view)
-        Log.d("info", "recycle: "+recyclerView)
-        var search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, this);
-        recyclerView?.layoutManager = layout_manager
-        search_list_adaptor.notifyDataSetChanged()
-        layout_manager.apply{
-            recyclerView?.adapter = search_list_adaptor
-        }
 
-        Log.d("info", "onResponse: "+title_list)
+    private lateinit var title_list: ArrayList<String>
+    private lateinit var owners: ArrayList<String>
+    private lateinit var descriptions: ArrayList<String>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var search_list_adaptor: SearchListAdaptor
+    private lateinit var layout_manager: LinearLayoutManager
+    private lateinit var projectIds: ArrayList<String>
+
+    override fun onResponse(result: JSONObject?) {
+
+        createPosts(result)
+
+        Log.d("info", "onResponse: " + result)
+        search_list_adaptor.notifyDataSetChanged()
+        var text: TextView = findViewById(R.id.search_text)
+        text.setText(title_list[0])
+
+//        Log.d("info", "onResponse: " + search_list_adaptor.gettitles().get(0))
 
     }
     override fun onCreate(savedInstanceState: Bundle?) {
+        title_list = ArrayList()
+        owners = ArrayList()
+        descriptions = ArrayList()
+        projectIds = ArrayList()
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         setContentView(R.layout.activity_search_project)
 
-        val projectName = intent.getStringExtra("ProjectName")
-        Log.d("info", "project name: "+projectName)
-        val url = "https://assembee.dissi.dev/search/"+projectName
-
-        MyVolleyRequest.getInstance(this@search_project, this@search_project)
-                .getRequest(url)
-
-
-//        title_list.add("test")
-//        owners.add("t est")
-//        descriptions.add("TESTSTESTSETEST")
-//        title_list.add("test")
-//        owners.add("t est")
-//        descriptions.add("TESTSTESTSETEST")
-//        title_list.add("test")
-//        owners.add("t est")
-//        descriptions.add("TESTSTESTSETEST")
-
-
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        setSupportActionBar(findViewById(R.id.search_bar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 //        val projectName = intent.getStringExtra("ProjectName")
-//        Log.d("Add_Post", "the value is $projectName")
-//        //val details: JSONObject? = projectName?.let { sendGet(it) }
-////        val details: JSONObject? = projectName?.let { sendGet(it) }
-//        projectName?.let { sendGet(it) }
-
-
+//        val category = intent.getStringExtra("category")
+//
+//        var url = ""
+//        if (category != null){
+//            url = "https://assembee.dissi.dev/category/"+category
+//        }
+//        else{
+//            url = "https://assembee.dissi.dev/search/"+projectName
+//        }
 //
 //
-//        //createPosts(details)
-//        Log.d("info", "got here")
+//        layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//        search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, this);
+//        recyclerView = findViewById(R.id.search_project_recycler_view)
+//        Log.d("info", "recycle: " + recyclerView)
+//
+//        recyclerView?.layoutManager = layout_manager
+//
+//        MyVolleyRequest.getInstance(this@search_project, this@search_project)
+//                .getRequest(url)
+//        recyclerView?.adapter = search_list_adaptor
+//        search_list_adaptor.notifyDataSetChanged()
+//        var text: TextView = findViewById(R.id.search_text)
+//        text.text = "123"
+
     }
+    override fun onBackPressed(){
+        super.onBackPressed()
+//        val intent = Intent(this, MainActivity:: class.java)
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        startActivity(intent)
+        title_list.clear()
+        Log.d("info", "title_list: " + title_list)
+        owners.clear()
+        descriptions.clear()
 
 
 
+    }
+    override fun onPause(){
+        super.onPause()
 
-//    fun sendGet(projectName: String): JSONObject?{
-//        Log.d("Add_Post 2", "the value is $projectName")
-//        var results: JSONObject? = null
-//        //val cache = DiskBasedCache(cacheDir, 2048 * 2048) // 2MB cap
-//
-//        // Set up the network to use HttpURLConnection as the HTTP client.
-////        val network = BasicNetwork(HurlStack())
-//
-//        // Instantiate the RequestQueue with the cache and network. Start the queue.
-////        val requestQueue = RequestQueue(cache, network).apply {
-////            start()
-////        }
-//
-//        val queue = Volley.newRequestQueue(this)
-//        val url = "https://assembee.dissi.dev/search/$projectName"
-//
-////        val stringRequest = StringRequest(
-////                Request.Method.GET, url, Response.Listener<String>
-////                { response ->
-////                    // Display the first 500 characters of the response string.
-////
-////
-////                    results = JSONObject(response)
-////
-////
-////                },
-////                { Log.d("info", "didn't work") })
-//        val getRequest = JsonObjectRequest(Request.Method.GET, url,null,Response.Listener{response ->
-//
-//        })
-////                Response.Listener<String> { response ->
-////                    results = JSONObjeact(response)
-////                    val project_list = results?.getJSONArray("projects")
-////                    if (project_list != null) {
-////                        title_list.add(project_list.getJSONObject(0).getString("name"))
-////                        owners.add(project_list.getJSONObject(0).getJSONObject("owner").getString("name"))
-////                        descriptions.add(project_list.getJSONObject(0).getString("description"))
-////                    }
-////
-////                },
-//                Response.ErrorListener { error ->
-//                    // Handle error
-//                    Log.d("info", "didn't work")
-//                })
+        title_list.clear()
+        Log.d("info", "title_list: " + title_list)
+        owners.clear()
+        descriptions.clear()
+    }
+    override fun onResume() {
+        super.onResume()
 
-//        Log.d("info", "Response is a : $results")
-//        createPosts(results)
-//        queue.add(stringRequest)
-//        return results
-//    }
-//
-//
-    fun createPosts(results: JSONObject?){
+        title_list.clear()
+        owners.clear()
+        descriptions.clear()
+//        val txt = findViewById<EditText>(R.id.search_text).apply {
+//            setText("123")
+//        }
+        val projectName = intent.getStringExtra("ProjectName")
+        val category = intent.getStringExtra("category")
+
+        Log.d("info", "Resume project name: " + projectName)
+        var url = ""
+        if (category != null){
+            url = "https://assembee.dissi.dev/category/"+category
+        }
+        else{
+            url = "https://assembee.dissi.dev/search/"+projectName
+        }
+
+        layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, projectIds,this);
+//        Log.d("info", "resume: " + )
+        recyclerView = findViewById<RecyclerView>(R.id.search_project_recycler_view)
+
+        recyclerView?.layoutManager = layout_manager
+        recyclerView?.adapter = search_list_adaptor
+
+
+        MyVolleyRequest.getInstance(this@search_project, this@search_project)
+            .getRequest(url)
+        search_list_adaptor.notifyDataSetChanged()
+
+
+
+    }
+    private fun createPosts(results: JSONObject?){
         val project_list = results?.getJSONArray("projects")
         val lengthList: Int? = project_list?.length()
         if(results != null){
@@ -139,10 +142,21 @@ class search_project : AppCompatActivity(), VolleyCallBack{
                 title_list.add(project_list.getJSONObject(i).getString("name"))
                 owners.add(project_list.getJSONObject(i).getJSONObject("owner").getString("name"))
                 descriptions.add(project_list.getJSONObject(i).getString("description"))
+                projectIds.add(project_list.getJSONObject(i).getString("id"))
             }
         }
     }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                //                Intent intent = new Intent(user_profile.this, MainActivity.class);
+                //                startActivity(intent);
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
 
 
