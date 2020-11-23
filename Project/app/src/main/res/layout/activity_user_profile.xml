@@ -64,6 +64,7 @@
 
                 <ImageButton
                     android:id="@+id/editIntro"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_baseline_edit_24"
@@ -87,6 +88,7 @@
 
                 <ImageButton
                     android:id="@+id/editContacts"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00000000"
@@ -113,6 +115,7 @@
 
                 <ImageButton
                     android:id="@+id/editSkills"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00000000"
@@ -141,6 +144,7 @@
 
                 <ImageButton
                     android:id="@+id/editAvail"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00000000"
