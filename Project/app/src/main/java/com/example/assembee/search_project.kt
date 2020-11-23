@@ -27,9 +27,8 @@ class search_project : AppCompatActivity(), VolleyCallBack{
 
         Log.d("info", "onResponse: " + result)
         search_list_adaptor.notifyDataSetChanged()
-        var text: TextView = findViewById(R.id.search_text)
+//        var text: TextView = findViewById(R.id.search_text)
 //        text.setText(title_list[0])
-
 //        Log.d("info", "onResponse: " + search_list_adaptor.gettitles().get(0))
 
     }
@@ -46,29 +45,29 @@ class search_project : AppCompatActivity(), VolleyCallBack{
         setSupportActionBar(findViewById(R.id.search_bar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-//        val projectName = intent.getStringExtra("ProjectName")
-//        val category = intent.getStringExtra("category")
-//
-//        var url = ""
-//        if (category != null){
-//            url = "https://assembee.dissi.dev/category/"+category
-//        }
-//        else{
-//            url = "https://assembee.dissi.dev/search/"+projectName
-//        }
-//
-//
-//        layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//        search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, this);
-//        recyclerView = findViewById(R.id.search_project_recycler_view)
-//        Log.d("info", "recycle: " + recyclerView)
-//
-//        recyclerView?.layoutManager = layout_manager
-//
-//        MyVolleyRequest.getInstance(this@search_project, this@search_project)
-//                .getRequest(url)
-//        recyclerView?.adapter = search_list_adaptor
-//        search_list_adaptor.notifyDataSetChanged()
+        val projectName = intent.getStringExtra("ProjectName")
+        val category = intent.getStringExtra("category")
+
+        var url = ""
+        if (category != null){
+            url = "https://assembee.dissi.dev/category/"+category
+        }
+        else{
+            url = "https://assembee.dissi.dev/search/"+projectName
+        }
+
+
+        layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, projectIds, this);
+        recyclerView = findViewById(R.id.search_project_recycler_view)
+        Log.d("info", "recycle: " + recyclerView)
+
+        recyclerView?.layoutManager = layout_manager
+
+        MyVolleyRequest.getInstance(this@search_project, this@search_project)
+                .getRequest(url)
+        recyclerView?.adapter = search_list_adaptor
+
 //        var text: TextView = findViewById(R.id.search_text)
 //        text.text = "123"
 
@@ -105,31 +104,31 @@ class search_project : AppCompatActivity(), VolleyCallBack{
 //        val txt = findViewById<EditText>(R.id.search_text).apply {
 //            setText("123")
 //        }
-        val projectName = intent.getStringExtra("ProjectName")
-        val category = intent.getStringExtra("category")
-
-        Log.d("info", "Resume project name: " + projectName)
-        var url = ""
-        if (category != null){
-            url = "https://assembee.dissi.dev/category/"+category
-        }
-        else{
-            url = "https://assembee.dissi.dev/search/"+projectName
-        }
-
-        layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, projectIds,this);
-//        Log.d("info", "resume: " + )
-        recyclerView = findViewById<RecyclerView>(R.id.search_project_recycler_view)
-
-        recyclerView?.layoutManager = layout_manager
-        recyclerView?.adapter = search_list_adaptor
-
-
-        MyVolleyRequest.getInstance(this@search_project, this@search_project)
-            .getRequest(url)
-        search_list_adaptor.notifyDataSetChanged()
+//        val projectName = intent.getStringExtra("ProjectName")
+//        val category = intent.getStringExtra("category")
+//
+//        Log.d("info", "Resume project name: " + projectName)
+//        var url = ""
+//        if (category != null){
+//            url = "https://assembee.dissi.dev/category/"+category
+//        }
+//        else{
+//            url = "https://assembee.dissi.dev/search/"+projectName
+//        }
+//
+//        layout_manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//
+//        search_list_adaptor = SearchListAdaptor(title_list, owners, descriptions, projectIds,this);
+////        Log.d("info", "resume: " + )
+//        recyclerView = findViewById<RecyclerView>(R.id.search_project_recycler_view)
+//
+//        recyclerView?.layoutManager = layout_manager
+//        recyclerView?.adapter = search_list_adaptor
+//
+//
+//        MyVolleyRequest.getInstance(this@search_project, this@search_project)
+//            .getRequest(url)
+//        search_list_adaptor.notifyDataSetChanged()
 
 
 
