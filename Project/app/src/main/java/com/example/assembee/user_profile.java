@@ -251,6 +251,13 @@ public class user_profile extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(user_profile.this, "Logged out", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(user_profile.this, MainActivity.class);
+                        // clear all the info in shared pref
+                        SharedPreferences sh
+                                = getSharedPreferences("sharedPref",
+                                MODE_PRIVATE);
+
+                        sh.edit().clear().apply();
+
                         startActivity(intent);
                     }
                 });

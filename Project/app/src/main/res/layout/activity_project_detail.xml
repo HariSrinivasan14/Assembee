@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
+        app:menu="@menu/project_details"
         />
 
     <ScrollView
@@ -339,9 +340,6 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/past_project_label"
                 tools:layout_editor_absoluteX="16dp" />
-
-
-
 
         </LinearLayout>
 
