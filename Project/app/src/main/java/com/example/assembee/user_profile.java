@@ -74,6 +74,9 @@ public class user_profile extends AppCompatActivity {
 
                     ExtendedFloatingActionButton edit_fab = findViewById(R.id.edit_profile);
                     edit_fab.show();
+
+                    // show signout again
+                    findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
                 }
             });
             edit_fab_done.hide();
@@ -91,6 +94,8 @@ public class user_profile extends AppCompatActivity {
                     ExtendedFloatingActionButton this_fab = (ExtendedFloatingActionButton) v;
                     this_fab.hide();
                     edit_fab_done.show();
+                    // hide signout
+                    findViewById(R.id.sign_out_button).setVisibility(View.GONE);
                 }
             });
 
