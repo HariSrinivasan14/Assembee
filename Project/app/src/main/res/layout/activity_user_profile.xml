@@ -138,7 +138,7 @@
                     android:id="@+id/availbility_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Availabilty"
+                    android:text="Availability"
                     android:textSize="25sp"
                     android:textColor="@color/yellow"/>
 
@@ -179,6 +179,19 @@
         </LinearLayout>
 
     </ScrollView>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/edit_profile_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:icon="@drawable/ic_baseline_check_24"
+        android:backgroundTint="@color/yellow"
+        android:contentDescription="Done"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/edit_profile"
@@ -192,6 +205,8 @@
         android:text="edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

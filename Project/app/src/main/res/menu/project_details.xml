@@ -6,6 +6,6 @@
         android:icon="@drawable/ic_baseline_delete_24"
         android:title="delete project"
         android:contentDescription="delete project"
-        app:showAsAction="ifRoom" />
-
+        android:orderInCategory="0"
+        app:showAsAction="always" />
 </menu>

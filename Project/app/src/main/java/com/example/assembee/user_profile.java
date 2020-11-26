@@ -33,6 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -56,7 +57,46 @@ public class user_profile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         boolean is_user = getIntent().getBooleanExtra("is user", true);
         if (is_user) {
+            ExtendedFloatingActionButton edit_fab_done = findViewById(R.id.edit_profile_done);
+            edit_fab_done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    findViewById(R.id.editIntro).setVisibility(View.GONE);
+                    findViewById(R.id.editSkills).setVisibility(View.GONE);
+                    findViewById(R.id.editAvail).setVisibility(View.GONE);
+                    findViewById(R.id.editContacts).setVisibility(View.GONE);
+
+                    ExtendedFloatingActionButton this_fab = (ExtendedFloatingActionButton) v;
+                    this_fab.hide();
+
+                    ExtendedFloatingActionButton edit_fab = findViewById(R.id.edit_profile);
+                    edit_fab.show();
+                }
+            });
+            edit_fab_done.hide();
+            // setup the edit fab
+            findViewById(R.id.edit_profile).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    findViewById(R.id.editIntro).setVisibility(View.VISIBLE);
+                    findViewById(R.id.editSkills).setVisibility(View.VISIBLE);
+                    findViewById(R.id.editAvail).setVisibility(View.VISIBLE);
+                    findViewById(R.id.editContacts).setVisibility(View.VISIBLE);
+                    ExtendedFloatingActionButton edit_fab_done = findViewById(R.id.edit_profile_done);
+                    ExtendedFloatingActionButton this_fab = (ExtendedFloatingActionButton) v;
+                    this_fab.hide();
+                    edit_fab_done.show();
+                }
+            });
+
+
+
             // set up all the edit buttons
+            findViewById(R.id.editIntro).setVisibility(View.GONE);
+            findViewById(R.id.editSkills).setVisibility(View.GONE);
+            findViewById(R.id.editAvail).setVisibility(View.GONE);
+            findViewById(R.id.editContacts).setVisibility(View.GONE);
+
             setEditListener(findViewById(R.id.editIntro), "bio", R.id.intro);
             setEditListener(findViewById(R.id.editSkills), "skills", R.id.skills);
             setEditListener(findViewById(R.id.editAvail), "availability", R.id.avail);
@@ -124,6 +164,8 @@ public class user_profile extends AppCompatActivity {
 
         } else {
             // hide all edit buttons for non-user
+            ExtendedFloatingActionButton edit_fab = findViewById(R.id.edit_profile);
+            edit_fab.hide();
             findViewById(R.id.editIntro).setVisibility(View.GONE);
             findViewById(R.id.editContacts).setVisibility(View.GONE);
             findViewById(R.id.editSkills).setVisibility(View.GONE);
