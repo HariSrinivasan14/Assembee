@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -65,6 +66,8 @@ public class user_profile extends AppCompatActivity {
                     findViewById(R.id.editSkills).setVisibility(View.GONE);
                     findViewById(R.id.editAvail).setVisibility(View.GONE);
                     findViewById(R.id.editContacts).setVisibility(View.GONE);
+                    Button resume_button = findViewById(R.id.resume_button);
+                    resume_button.setText("Download Resume");
 
                     ExtendedFloatingActionButton this_fab = (ExtendedFloatingActionButton) v;
                     this_fab.hide();
@@ -82,6 +85,8 @@ public class user_profile extends AppCompatActivity {
                     findViewById(R.id.editSkills).setVisibility(View.VISIBLE);
                     findViewById(R.id.editAvail).setVisibility(View.VISIBLE);
                     findViewById(R.id.editContacts).setVisibility(View.VISIBLE);
+                    Button resume_button = findViewById(R.id.resume_button);
+                    resume_button.setText("Upload new resume (PDF)");
                     ExtendedFloatingActionButton edit_fab_done = findViewById(R.id.edit_profile_done);
                     ExtendedFloatingActionButton this_fab = (ExtendedFloatingActionButton) v;
                     this_fab.hide();
