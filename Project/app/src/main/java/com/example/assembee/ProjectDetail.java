@@ -132,6 +132,8 @@ public class ProjectDetail extends AppCompatActivity {
                                             public void onResponse(JSONObject response) {
                                                 // Storing userId into SharedPreferences
                                                 ProjectDetail.this.contributors.add("Waiting for response");
+                                                ProjectDetail.this.avatarUrls.add(sharedPreferences.getString("avatarURL", null));
+                                                ProjectDetail.this.userIds.add(sharedPreferences.getString("userId", null));
                                                 ProjectDetail.this.avatarListAdaptor.notifyDataSetChanged();
 
                                                 // hide the join button
