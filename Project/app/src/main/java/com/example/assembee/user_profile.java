@@ -177,7 +177,7 @@ public class user_profile extends AppCompatActivity {
             ExtendedFloatingActionButton edit_fab = findViewById(R.id.edit_profile);
             edit_fab.hide();
             ExtendedFloatingActionButton edit_fab_done = findViewById(R.id.edit_profile_done);
-            edit_fab.hide();
+            edit_fab_done.hide();
 
             findViewById(R.id.editIntro).setVisibility(View.GONE);
             findViewById(R.id.editContacts).setVisibility(View.GONE);
