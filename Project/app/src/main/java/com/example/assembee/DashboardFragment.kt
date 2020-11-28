@@ -98,7 +98,7 @@ class DashboardFragment : Fragment() {
                         }
 
                         for (i in 0 until cont_projects.length()) {
-                            var project: JSONObject = owner_projects.getJSONObject(i)
+                            var project: JSONObject = cont_projects.getJSONObject(i)
                             pending_request_title.add(project.getString("name"))
                             pending_request_owners.add(project.getJSONObject("owner").getString("name"))
                             pending_request_descriptions.add(project.getString("description"))
