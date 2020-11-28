@@ -10,6 +10,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,8 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,6 +39,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
@@ -58,6 +62,8 @@ public class ProjectDetail extends AppCompatActivity {
     AvatarListAdaptor avatarListAdaptor;
     String projectId;
     String ownerId;
+
+    MenuItem delete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +107,22 @@ public class ProjectDetail extends AppCompatActivity {
         avatar_recycler.setAdapter(avatarListAdaptor);
 
         // setup the fab
+        // hide the edit done button
+        ExtendedFloatingActionButton edit_done = findViewById(R.id.edit__done_button);
+        edit_done.hide();
+
+        // hide all edit buttons
+        findViewById(R.id.editTitle).setVisibility(View.GONE);
+        findViewById(R.id.editState).setVisibility(View.GONE);
+        findViewById(R.id.editCatagroies).setVisibility(View.GONE);
+        findViewById(R.id.editDesc).setVisibility(View.GONE);
+        findViewById(R.id.editskill).setVisibility(View.GONE);
+        findViewById(R.id.editAvai).setVisibility(View.GONE);
+
+        ExtendedFloatingActionButton join = findViewById(R.id.join_button);
+        join.hide();
+
+
         findViewById(R.id.join_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +181,50 @@ public class ProjectDetail extends AppCompatActivity {
             }
         });
 
+        // setup the edit fab
+        findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.editTitle).setVisibility(View.VISIBLE);
+                findViewById(R.id.editState).setVisibility(View.VISIBLE);
+                findViewById(R.id.editCatagroies).setVisibility(View.VISIBLE);
+                findViewById(R.id.editDesc).setVisibility(View.VISIBLE);
+                findViewById(R.id.editskill).setVisibility(View.VISIBLE);
+                findViewById(R.id.editAvai).setVisibility(View.VISIBLE);
+
+                // hide the button itself and show the done button
+                ExtendedFloatingActionButton this_fab = findViewById(R.id.edit_button);
+                this_fab.hide();
+
+                ExtendedFloatingActionButton done = findViewById(R.id.edit__done_button);
+                done.show();
+
+                delete.setVisible(true);
+            }
+        });
+
+        // set up the done button
+        findViewById(R.id.edit__done_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.editTitle).setVisibility(View.GONE);
+                findViewById(R.id.editState).setVisibility(View.GONE);
+                findViewById(R.id.editCatagroies).setVisibility(View.GONE);
+                findViewById(R.id.editDesc).setVisibility(View.GONE);
+                findViewById(R.id.editskill).setVisibility(View.GONE);
+                findViewById(R.id.editAvai).setVisibility(View.GONE);
+
+                ExtendedFloatingActionButton this_fab = findViewById(R.id.edit__done_button);
+                this_fab.hide();
+
+                ExtendedFloatingActionButton edit = findViewById(R.id.edit_button);
+                edit.show();
+
+                delete.setVisible(false);
+
+            }
+        });
+
 
         // fetch projects from api
         String url = "https://assembee.dissi.dev/project/" + projectId;
@@ -184,16 +250,15 @@ public class ProjectDetail extends AppCompatActivity {
                             // hide edit buttons if the use is not the owner
                             ownerId = response.getJSONObject("owner").getString("id");
                             if (!response.getJSONObject("owner").getString("id").equals(userId)) {
-                                findViewById(R.id.editTitle).setVisibility(View.GONE);
-                                findViewById(R.id.editState).setVisibility(View.GONE);
-                                findViewById(R.id.editCatagroies).setVisibility(View.GONE);
-                                findViewById(R.id.editDesc).setVisibility(View.GONE);
-                                findViewById(R.id.editskill).setVisibility(View.GONE);
-                                findViewById(R.id.editAvai).setVisibility(View.GONE);
 
-                                // hide the edit fab
+                                // hide the edit fab if not user
                                 ExtendedFloatingActionButton fab = findViewById(R.id.edit_button);
                                 fab.hide();
+                                // show the join button
+
+                                ExtendedFloatingActionButton join = findViewById(R.id.join_button);
+                                join.hide();
+
                             } else {
                                 // is the owner, hide the join fab
                                 ExtendedFloatingActionButton fab = findViewById(R.id.join_button);
@@ -401,7 +466,7 @@ public class ProjectDetail extends AppCompatActivity {
                 TextView currentState = findViewById(R.id.state);
                 builder.setTitle("Edit " + field + ": " + currentState.getText().toString());
 
-                String[] states = {"ongoing", "finished", "delete project"};
+                String[] states = {"ongoing", "finished"};
                 builder.setItems(states, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -468,30 +533,6 @@ public class ProjectDetail extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                RequestQueue requstQueue = Volley.newRequestQueue(ProjectDetail.this);
-                                requstQueue.add(req);
-                            }
-                            case 2: {
-                                JsonObjectRequest req = null;
-                                req = null;
-                                req = new JsonObjectRequest(Request.Method.DELETE,
-                                        url,
-                                        null,
-                                        new Response.Listener<JSONObject>() {
-                                            @Override
-                                            public void onResponse(JSONObject response) {
-                                                Log.d("deleted", response.toString());
-                                                Toast.makeText(ProjectDetail.this, "Project deleted", Toast.LENGTH_SHORT).show();
-                                                onBackPressed();
-                                            }
-                                        }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        VolleyLog.d("Error", "Error: " + error.getMessage());
-                                        Toast.makeText(ProjectDetail.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                    }
-                                });
                                 RequestQueue requstQueue = Volley.newRequestQueue(ProjectDetail.this);
                                 requstQueue.add(req);
                             }
@@ -563,6 +604,59 @@ public class ProjectDetail extends AppCompatActivity {
                 builder.show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate( R.menu.project_details, menu );
+        delete = menu.findItem(R.id.delete_project);
+        delete.setVisible(false);
+        delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                new MaterialAlertDialogBuilder(ProjectDetail.this)
+                        .setTitle("You are about to delete this project")
+                        .setMessage("This project will be lost forever, are you sure you want to delete it?")
+
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPreferences
+                                        = ProjectDetail.this.getSharedPreferences("sharedPref",
+                                        MODE_PRIVATE);
+
+                                String url = "https://assembee.dissi.dev/project/" + projectId;
+                                StringRequest req = null;
+                                req = new StringRequest(Request.Method.DELETE,
+                                        url,
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                Toast.makeText(ProjectDetail.this, "Project deleted", Toast.LENGTH_LONG).show();
+                                                dialog.dismiss();
+                                                onBackPressed();
+                                            }
+                                        }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        VolleyLog.d("Error", "Error: " + error.getMessage());
+                                        Toast.makeText(ProjectDetail.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                                RequestQueue requstQueue = Volley.newRequestQueue(ProjectDetail.this);
+                                requstQueue.add(req);
+                            }
+                        })
+
+                        // dismiss the dialog and do nothing
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+
+                return true;
+            }
+        });
+        return true;
     }
 
     @Override
