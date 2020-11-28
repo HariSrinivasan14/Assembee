@@ -28,6 +28,7 @@
         <activity
             android:name=".Add_Post"
             android:label="@string/title_activity_add__post"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.Assembee.NoActionBar" />
         <activity
             android:name=".newPosting"
