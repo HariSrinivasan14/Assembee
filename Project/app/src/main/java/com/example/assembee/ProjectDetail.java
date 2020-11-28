@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -38,6 +41,8 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONArray;
@@ -127,6 +132,8 @@ public class ProjectDetail extends AppCompatActivity {
                                             public void onResponse(JSONObject response) {
                                                 // Storing userId into SharedPreferences
                                                 ProjectDetail.this.contributors.add("Waiting for response");
+                                                ProjectDetail.this.avatarUrls.add(sharedPreferences.getString("avatarURL", null));
+                                                ProjectDetail.this.userIds.add(sharedPreferences.getString("userId", null));
                                                 ProjectDetail.this.avatarListAdaptor.notifyDataSetChanged();
 
                                                 // hide the join button
@@ -183,6 +190,15 @@ public class ProjectDetail extends AppCompatActivity {
                                 findViewById(R.id.editDesc).setVisibility(View.GONE);
                                 findViewById(R.id.editskill).setVisibility(View.GONE);
                                 findViewById(R.id.editAvai).setVisibility(View.GONE);
+
+                                // hide the edit fab
+                                ExtendedFloatingActionButton fab = findViewById(R.id.edit_button);
+                                fab.hide();
+                            } else {
+                                // is the owner, hide the join fab
+                                ExtendedFloatingActionButton fab = findViewById(R.id.join_button);
+                                fab.hide();
+
                             }
                             projectName.setText(response.getString("name"));
                             owner.setText(response.getJSONObject("owner").getString("name"));
