@@ -119,6 +119,10 @@ public class ProjectDetail extends AppCompatActivity {
         findViewById(R.id.editskill).setVisibility(View.GONE);
         findViewById(R.id.editAvai).setVisibility(View.GONE);
 
+        ExtendedFloatingActionButton edit = findViewById(R.id.edit_button);
+        edit.hide();
+
+
         ExtendedFloatingActionButton join = findViewById(R.id.join_button);
         join.hide();
 
@@ -263,6 +267,9 @@ public class ProjectDetail extends AppCompatActivity {
                                 // is the owner, hide the join fab
                                 ExtendedFloatingActionButton fab = findViewById(R.id.join_button);
                                 fab.hide();
+
+                                ExtendedFloatingActionButton edit = findViewById(R.id.edit_button);
+                                edit.show();
 
                             }
                             projectName.setText(response.getString("name"));
