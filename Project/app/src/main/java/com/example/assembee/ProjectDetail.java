@@ -261,7 +261,7 @@ public class ProjectDetail extends AppCompatActivity {
                                 // show the join button
 
                                 ExtendedFloatingActionButton join = findViewById(R.id.join_button);
-                                join.hide();
+                                join.show();
 
                             } else {
                                 // is the owner, hide the join fab
