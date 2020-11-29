@@ -11,14 +11,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        >
 
         <TextView
             android:id="@+id/NewProject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:textColor="@color/yellow"
@@ -29,9 +30,8 @@
 
         <EditText
             android:id="@+id/textProjectName"
-            android:layout_width="324dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/inputbox"
@@ -43,15 +43,12 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:inputType="text"
-            android:layout_marginStart="10dp"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/projectCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/Project_Category"
@@ -62,9 +59,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginEnd="15dp"
             >
 
             <com.google.android.material.chip.ChipGroup
@@ -115,12 +109,11 @@
 
         </LinearLayout>
 
+
         <TextView
             android:id="@+id/contactInformation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/Contact_Information"
@@ -129,9 +122,8 @@
 
         <EditText
             android:id="@+id/textContactInformation"
-            android:layout_width="326dp"
+            android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/inputbox"
@@ -146,15 +138,12 @@
             android:autofillHints="@string/Project_Name"
             android:paddingStart="15dp"
             android:paddingEnd="10dp"
-            android:layout_marginStart="10dp"
 
             />
         <TextView
             android:id="@+id/preferredAvailability"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/Preferred_Availabilty"
@@ -162,11 +151,9 @@
             android:textSize="25sp" />
         <EditText
             android:id="@+id/textPreferredAvailability"
-            android:layout_width="326dp"
+            android:layout_width="match_parent"
             android:layout_height="65dp"
             android:textColor="@color/black"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/inputbox"
@@ -185,8 +172,6 @@
             android:id="@+id/DD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/DD"
@@ -195,10 +180,8 @@
 
         <EditText
             android:id="@+id/TextDD"
-            android:layout_width="336dp"
+            android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/inputbox"
@@ -219,8 +202,6 @@
             android:id="@+id/DesiredSkills"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/Desired_Skills"
@@ -229,10 +210,8 @@
 
         <EditText
             android:id="@+id/TextDesiredSkills"
-            android:layout_width="336dp"
+            android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/inputbox"
@@ -249,18 +228,21 @@
             android:textColor="@color/black"
             />
 
-        <Button
-            android:id="@+id/postButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="250dp"
-            android:layout_marginLeft="250dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/buttonround"
-            android:text="@string/Post"
-            android:textColor="@color/black" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/postButton"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttonround"
+                android:text="@string/Post"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
 
     </LinearLayout>
