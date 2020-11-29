@@ -93,9 +93,6 @@
 <!--                android:layout_height="2dp"-->
 <!--                android:background="?android:attr/listDivider" />-->
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="5dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -402,9 +399,7 @@
                     tools:layout_editor_absoluteX="16dp" />
 
             </LinearLayout>
-
         </LinearLayout>
-
 
     </ScrollView>
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
